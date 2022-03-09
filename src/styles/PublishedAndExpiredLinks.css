@@ -1,0 +1,25 @@
+#publishedAndExpiredBtnsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0;
+}
+
+#publishedAndExpiredBtnsContainer a {
+  background-color: #b9fac9;
+  color: #282A36;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+  font-weight: 600;
+  text-decoration: none;
+  width: 49.85%;
+  margin-bottom: 0.8%;
+  padding: 0.2%;
+  transition-duration: 0.3s;
+}
+
+#publishedAndExpiredBtnsContainer a:hover {
+  background-color: #8bf3a5;
+  font-size: 1.15em;
+}

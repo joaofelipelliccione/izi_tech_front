@@ -1,0 +1,180 @@
+#myPublishedAdsPageMain {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  padding: 3%;
+}
+
+#myPublishedAdsContainer1 {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 80%;
+}
+
+#myPublishedAdsContainer1 h2 {
+  color: ghostwhite;
+  font-size: 1.8em;
+  width: fit-content;
+  margin: 0;
+}
+
+#myPublishedAdsContainer1-1 {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+#myPublishedAdsScrollWrapper {
+  border: solid 1.5px ghostwhite;
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 100%;
+  height: 600px;
+  overflow-y: scroll;
+}
+
+#myPublishedAdsScrollWrapper::-webkit-scrollbar {
+  width: 12px;
+}
+
+#myPublishedAdsScrollWrapper::-webkit-scrollbar-track {
+  background: #295551; 
+}
+
+#myPublishedAdsScrollWrapper::-webkit-scrollbar-thumb {
+  background: #73e2c2;
+}
+
+#myPublishedAdsScrollWrapper::-webkit-scrollbar-thumb:hover {
+  background: #8bf3a5; 
+}
+
+#eachUserPublishedAdCard {
+  background-image: linear-gradient(to top right, #89EFA5, #73e2c2, #5e9490);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 20px 5px;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 65%;
+  height: 190px;
+  margin: 1% 0 1% 0;
+  transition-duration: 0.2s;
+}
+
+#eachUserPublishedAdCard img {
+  border-radius: 55px;
+  width: 24%;
+  height: 180px;
+}
+
+#eachUserPublishedAdCardBlock1 {
+  background-color: #282a36;
+  color: ghostwhite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  height: 100%;
+  padding: 1%;
+}
+
+#eachUserPublishedAdCardBlock1 h3 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1%;
+}
+
+#eachUserPublishedAdCardBlock1 p {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+#eachUserPublishedAdCardBlock1-1 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 65%;
+  margin-bottom: 1%;
+}
+
+#eachUserPublishedAdCardBlock1-1 p:nth-of-type(1) {
+  background-color: rgb(245, 233, 210);
+  border-radius: 5px;
+  color: #282a36;
+  font-weight: 600;
+  padding: 1%;
+}
+
+#eachUserPublishedAdCardBlock2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15%;
+}
+
+#eachUserPublishedAdCardBlock2 p {
+  color: #282A36;
+  font-weight: 600;
+  text-align: center;
+}
+
+#eachUserPublishedAdCardBlock2-1 {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+#editAdBtn {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  color: ghostwhite;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 8px;
+}
+
+#deleteAdBtn {
+  background-color: #ff6b6b;
+  color: ghostwhite;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 8px;
+}
+
+#editAdBtn:hover, #deleteAdBtn:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#noPublishedAdsContainer {
+  border: solid 1.5px ghostwhite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 550px;
+}
+
+#noPublishedAdsContainer img {
+  width: 500px;
+  height: 400px;
+}
+
+#noPublishedAdsContainer h2 {
+  color: ghostwhite;
+  font-size: 1.6em;
+  width: fit-content;
+  margin: 2% 0 3% 0;
+}

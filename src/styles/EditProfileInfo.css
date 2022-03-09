@@ -1,0 +1,284 @@
+.editProfileInfoRequiredField {
+  color: #ff5555;
+  font-weight: 700;
+}
+
+#editProfileInfoPageMain {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  padding: 3%;
+}
+
+#editProfileInfoForm {
+  background-color: #8bf3a5;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 2% 0;
+  padding: 2%;
+}
+
+#editProfileInfoForm label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1.5%;
+}
+
+#editProfileInfoForm output {
+  margin-left: 7px;
+}
+
+#editProfileInfoForm input[type = "password"], #editProfileInfoForm input[type = "text"], #editProfileInfoForm input[type = "date"] {
+  background-color: #e4f6f8;
+  border: dashed 1px rgb(71, 50, 71);
+  border-radius: 4px;
+  color: #282A36;
+  font-size: 1em;
+  width: 55%;
+  margin-left: 6px;
+  padding: 0.5%;
+  transition: 0.3s width ease-in-out;
+}
+
+#editProfileInfoForm input[type = "password"]:focus, #editProfileInfoForm input[type = "text"]:focus, #editProfileInfoForm input[type = "date"]:focus {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  color: ghostwhite;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  outline: none;
+  width: 65%;
+}
+
+#editProfileBlock1 {
+  border-top: dashed 2px #282A36;
+  border-bottom: dashed 2px #282A36;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 2%;
+}
+
+#profilePicUploaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+}
+
+#profilePicUploaderContainer img {
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  align-self: center;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 10px;
+}
+
+#profilePicUploaderContainer label {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  border-radius: 5px;
+  color: #FFF;
+  cursor: pointer;
+  width: 80%;
+  text-align: center;
+  display: block;
+  margin-top: 1%;
+  padding: 2% 3%;
+  transition: 0.3s width ease-in-out;
+}
+
+#profilePicUploaderContainer label:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 85%;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+#editProfileBlock1-1 {
+  border: solid 2px rgb(119, 91, 119);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 70%;
+  padding: 1.5% 1% 1% 1%;
+}
+
+#editProfileBlock1-1 h2 {
+  color: #282A36;
+  font-size: 1.2em;
+  width: 100%;
+  text-align: center;
+  align-self: center;
+  margin: 0.5% 0 0;
+}
+
+#editProfileBlock2 {
+  border-bottom: dashed 2px #282A36;
+  display: flex;
+  justify-content: space-around;
+  padding: 2% 1%;
+}
+
+#editProfileBlock2-1 {
+  border: solid 2px rgb(119, 91, 119);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 40%;
+}
+
+#editProfileBlock2-2 {
+  border: solid 2px rgb(119, 91, 119);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 50%;
+}
+
+#editProfileBlock2-1 h3, #editProfileBlock2-2 h3 {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  border-radius: 3px;
+  color: ghostwhite;
+  text-align: center;
+  font-size: 1.2em;
+  width: 100%;
+  margin: 0;
+  padding: 1%;
+}
+
+#editProfileBlock2-1-1, #editProfileBlock2-2-1 {
+  display: flex;
+  flex-direction: column;
+  padding: 1% 2%;
+}
+
+#editPasswordHelper {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 4%;
+  padding: 1% 4%;
+}
+
+#editPasswordHelper p {
+  color: ghostwhite;
+  font-size: 0.9em;
+  margin: 1% 0;
+}
+
+#editCepSearchBar {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  width: 75%;
+}
+
+#editCepSearchBar label {
+  width: 70%;
+  margin: 0 0 2.5% 0;
+}
+
+#editUserCepBtn {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  margin: -2% 0 0 -5%;
+  padding: 1.8%;
+  transition: 0.3s ease-in-out;
+}
+
+#editUserCepBtn svg {
+  color: ghostwhite;
+  font-size: 1em;
+}
+
+#editUserCepBtn:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#editUserCepBtn:disabled {
+  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  border: none;
+}
+
+#editUserCepBtn:disabled:hover {
+  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  cursor: default;
+  box-shadow: none;
+}
+
+#editProfileBlock2-2-1 p {
+  text-align: center;
+  margin: 5px 0 4px 0;
+}
+
+#editProfileBtnsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  width: 65%;
+  margin-top: 2.5%;
+}
+
+#editProfileSaveBtn, #editProfileCancelBtn {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  color: ghostwhite;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 1.5%;
+  transition: 0.3s width ease-in-out;
+}
+
+#editProfileSaveBtn:hover, #editProfileCancelBtn:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 43%;
+}
+
+#editProfileSaveBtn svg, #editProfileCancelBtn svg {
+  color: ghostwhite;
+  font-size: 1em;
+  margin-left: 7px;
+}
+
+#editProfileSaveBtn:disabled {
+  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  border: none;
+  width: 40%;
+}
+
+#editProfileSaveBtn:disabled:hover {
+  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  cursor: default;
+  box-shadow: none;
+  width: 40%;
+}

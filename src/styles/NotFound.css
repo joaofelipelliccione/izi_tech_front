@@ -1,0 +1,48 @@
+#notFoundPageMain {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  padding: 4%;
+}
+
+#notFoundBlock1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5%;
+}
+
+#notFoundBlock1 h1 {
+  color: ghostwhite;
+  font-size: 2em;
+  margin: 0 0 1% 0;
+}
+
+#notFoundBlock1 span {
+  color: ghostwhite;
+  font-size: 1.2em;
+}
+
+#notFoundBlock2 {
+  display: flex;
+  width: fit-content;
+}
+
+#notFoundBlock2 a {
+  color: wheat;
+  text-decoration: overline;
+  font-size: 1.2em;
+}
+
+#notFoundBlock2 a:hover {
+  text-decoration: underline;
+}
+
+#notFoundIllustration1 {
+  align-self: center;
+  width: 400px;
+  height: 400px;
+  margin-top: 2.5%;
+}

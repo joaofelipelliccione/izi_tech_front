@@ -1,0 +1,101 @@
+#removePublishedAdPageMain {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  padding: 3%;
+}
+
+#removePublishedAdMessage {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5%;
+  width: 55%;
+}
+
+#removePublishedAdMessage h1 {
+  color: ghostwhite;
+  text-align: center;
+  font-size: 2em;
+  margin: 0;
+}
+
+#removePublishedAdMessage h2 {
+  color: ghostwhite;
+  text-align: center;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+#removePublishedAdForm {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+#removePublishedAdBlock1 {
+  background-color: #B9FAC9;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0.5%;
+}
+
+#removePublishedAdBlock1 label {
+  display: flex;
+  align-items: center;
+  font-size: 1.1em;
+  width: fit-content;
+  cursor: pointer;
+  margin: 1% 0;
+}
+
+#removePublishedAdBlock1 input[type = "radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+#removePublishedAdBtnsContainer {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5%;
+}
+
+#removePublishedAdCancelBtn {
+  background-color: ghostwhite;
+  color: #282A36;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 1%;
+  transition: 0.3s width ease-in-out;
+}
+
+#removePublishedAdCancelBtn svg{
+  margin-left: 6px;
+}
+
+#removePublishedAdBtn {
+  background-color: #ff6b6b;
+  color: ghostwhite;
+  border: none;
+  border-radius: 5px;
+  width: 35%;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 1%;
+  transition: 0.3s width ease-in-out;
+}
+
+#removePublishedAdBtn:hover, #removePublishedAdCancelBtn:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 40%;
+}

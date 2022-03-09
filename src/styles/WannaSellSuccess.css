@@ -1,0 +1,49 @@
+#wannaSellSuccessPageMain {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  padding: 4%;
+}
+
+#wannaSellSuccessBlock1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5%;
+}
+
+#wannaSellSuccessBlock1 h1 {
+  color: ghostwhite;
+  font-size: 2em;
+  margin: 0 0 1% 0;
+}
+
+#wannaSellSuccessBlock1 span {
+  color: ghostwhite;
+  font-size: 1.2em;
+}
+
+#wannaSellSuccessBlock2 {
+  display: flex;
+  width: 40%;
+  justify-content: space-evenly;
+}
+
+#wannaSellSuccessBlock2 a {
+  color: wheat;
+  text-decoration: overline;
+  font-size: 1.2em;
+}
+
+#wannaSellSuccessBlock2 a:hover {
+  text-decoration: underline;
+}
+
+#wannaSellSuccessIllustration1 {
+  align-self: center;
+  width: 500px;
+  height: 400px;
+  margin-top: 1.5%;
+}

@@ -1,0 +1,51 @@
+#searchBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 1%;
+}
+
+#searchBarContainer input[ type = 'text' ] {
+  background-color: #b9fac9;
+  color: #282a36;
+  border-radius: 5px;
+  font-size: 1.1em;
+  width: 250px;
+  height: 40px;
+  padding: 7px;
+  transition: 0.3s width ease-in-out;
+}
+
+#searchBarContainer input[ type = 'text' ]:focus {
+  background-color: #8bf3a5;
+  color: #282a36;
+  outline: none;
+  width: 300px;
+}
+
+#searchBarContainer button {
+  background-color: #b9fac9;
+  border: none;
+  border-radius: 20px;
+  align-self: center;
+  cursor: pointer;
+  font-size: 1em;
+  margin: 0 2%;
+  padding: 7px;
+  transition: 0.2s ease-in-out;
+}
+
+#searchBarContainer svg {
+  color: rgb(71, 50, 71);
+  width: 100%;
+}
+
+#searchBarContainer button:hover {
+  background-color: #8bf3a5;
+}
+
+#searchBarContainer button:disabled {
+  background-color: rgba(235, 235, 235, 0.582);
+  cursor: default;
+}

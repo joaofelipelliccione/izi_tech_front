@@ -1,0 +1,333 @@
+#adDetailsPageMain {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  padding: 3%;
+}
+
+#adDetailsShareLinkCopiedNotification {
+  background-color: #B9FAC9;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: #282A36;
+  border-radius: 5px 25px;
+  align-self: center;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  width: 10%;
+  margin: 0;
+  padding: 2px 10px;
+}
+
+#adDetailsContainer1 {
+  background-color: #8BF3A5;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 75%;
+  padding: 1%;
+}
+
+#adDetailsBlock1 {
+  border-top: dashed 2px #282A36;
+  border-bottom: dashed 2px #282A36;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  padding: 1% 0;
+}
+
+#adDetailsBlock1-1 {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+#adDetailsBlock1-1-1 {
+  color: #282A36;
+  align-self: flex-start;
+  font-size: 0.85em;
+  width: 100%;
+}
+
+#adDetailsBlock1-1-1 a {
+  color: #fb5f5f;
+  font-weight: 600;
+}
+
+#adDetailsBlock1-1-1 a:hover {
+  text-decoration: overline;
+}
+
+#adDetailsBlock1-1 h1 {
+  background-color: #282A36;
+  border-radius: 5px 15px;
+  color: #8BED8D;
+  align-self: flex-start;
+  font-size: 1.05em;
+  font-weight: 600;
+  width: fit-content;
+  margin: 2% 0;
+  padding: 1% 8% 1% 2%;
+}
+
+#adDetailsPublicationDate {
+  font-size: 0.9em;
+}
+
+.adDetailsProductCondition {
+  background-color: #282A36;
+  color: #8BED8D;
+  border-radius: 12px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05em;
+  font-weight: 600;
+  width: 10%;
+  padding: 2.5% 1%;
+  transition-duration: 0.3s;
+}
+
+.adDetailsProductCondition:hover {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+}
+
+#adDetailsProductAcceptChange {
+  background-color: #282A36;
+  color: #8BED8D;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.05em;
+  font-weight: 600;
+  width: fit-content;
+  height: 90%;
+  padding: 2.5% 1%;
+}
+
+#adDetailsProductPrice {
+  background-color: #282A36;
+  border-radius: 20px 5px;
+  color: #8BED8D;
+  text-align: center;
+  font-size: 1.05em;
+  font-weight: 600;
+  padding: 1% 2%;
+}
+
+#adDetailsBlock2 {
+  border: solid 2px pink;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  width: 95%;
+  margin-top: 1.5%;
+}
+
+#adDetailsBlock2-1 {
+  display: flex;
+  flex-direction: column;
+  width: 62.5%;
+}
+
+#adDetailsPicsCarouselContainer {
+  background-color: #282A36;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+#adDetailsPicsCarouselContainer img {
+  width: 365px;
+  height: 365px;
+}
+
+#adDetailsPicsCarouselContainer button {
+  background-color: #282A36;
+  color: #8BF3A5;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 2em;
+  padding: 2%;
+  transition-duration: 0.2s;
+}
+
+#adDetailsPicsCarouselContainer button:hover {
+  color: #c7fbd4;
+}
+
+#adDetailsLocFavAndShareContainer {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2%;
+}
+
+#adDetailsLocation {
+  background-color: #282A36;
+  border-radius: 5px;
+  color: #8BF3A5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05em;
+  font-weight: 600;
+  width: 55%;
+  margin: 0;
+  padding: 0.5%;
+}
+
+#adDetailsFavAndShareContainer {
+  display: flex;
+  justify-content: space-evenly;
+  width: 20%;
+}
+
+#adDetailsFavBtn {
+  background-color: #ff6b6b;
+  color: ghostwhite;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 8px;
+}
+
+#adDetailsShareBtn {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  color: ghostwhite;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 8px;
+}
+
+#adDetailsFavBtn:hover, #adDetailsShareBtn:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#adDetailsDescription {
+  background-color: #282A36;
+  color: ghostwhite;
+  border-radius: 7px;
+  font-size: 1.05em;
+  margin-top: 2%;
+  padding: 1%;
+}
+
+#adDetailsDescription::-webkit-scrollbar {
+  border-radius: 9px;
+  width: 8px;
+}
+
+#adDetailsDescription::-webkit-scrollbar-track {
+  background-color: rgb(167, 120, 167);
+}
+
+#adDetailsDescription::-webkit-scrollbar-thumb {
+  background: #adf3df;
+  border-radius: 9px;
+}
+
+#adDetailsDescription::-webkit-scrollbar-thumb:hover {
+  background: #d6f7ed;
+}
+
+#adDetailsBlock2-2 {
+  border: solid 2px red;
+  display: flex;
+  flex-direction: column;
+  width: 32.5%;
+}
+
+#adDetailsContactInfo {
+  border: solid 2px blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#adDetailsContactInfo h4 {
+  background-color: #282A36;
+  color: #8BF3A5;
+  border-radius: 7px;
+  font-size: 1.05em;
+  margin-top: 0;
+  margin-bottom: 4%;
+  padding: 1% 2%;
+}
+
+#adDetailsContactInfoBtnsContainer {
+  display: flex;
+  align-self: center;
+  justify-content: space-evenly;
+  width: 40%;
+}
+
+#adDetailsContactInfoBtnsContainer button {
+  background-color: #282A36;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  width: 25%;
+  padding: 4%;
+  transition-duration: 0.3s;
+}
+
+#adDetailsContactInfoBtnsContainer button:hover {
+  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+}
+
+#adDetailsContactInfoBtnsContainer button:disabled {
+  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  border: none;
+}
+
+#adDetailsContactInfoBtnsContainer button:disabled:hover {
+  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  cursor: default;
+  box-shadow: none;
+}
+
+#adDetailsContactInfoBtnsContainer a {
+  color: #8BED8D;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.notInformedCellphone {
+  pointer-events: none;
+}
+
+#adDetailsContactInfo span {
+  background-color: #282A36;
+  color: #8BF3A5;
+  border-radius: 7px;
+  font-size: 1.05em;
+  margin-top: 4%;
+  padding: 1% 2%;
+}
