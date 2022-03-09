@@ -12,7 +12,7 @@ const authTokenVerifier = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      authorization: loginInfo.authToken,
+      Authorization: loginInfo.authToken,
     },
   });
   const { code } = await fetchedData.json();
