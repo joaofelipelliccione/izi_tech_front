@@ -1,7 +1,9 @@
 const { StatusCodes } = require('http-status-codes');
 
 const authTokenVerifier = async () => {
-  const VERIFY_TOKEN_ENDPOINT = 'http://localhost:4000/verify_token';
+  const VERIFY_TOKEN_ENDPOINT = 'https://izi-tech-back.herokuapp.com/verify_token';
+  // const VERIFY_TOKEN_ENDPOINT_LOCAL = 'http://localhost:4000/verify_token';
+
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
 
   if (loginInfo === null || !loginInfo) {

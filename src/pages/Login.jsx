@@ -13,7 +13,9 @@ import '../styles/Alerts.css';
 const { StatusCodes } = require('http-status-codes');
 
 function Login() {
-  const LOGIN_ENDPOINT = 'http://localhost:4000/login';
+  const LOGIN_ENDPOINT = 'https://izi-tech-back.herokuapp.com/login';
+  // const LOGIN_ENDPOINT_LOCAL = 'http://localhost:4000/login';
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [userMail, setUserMail] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
