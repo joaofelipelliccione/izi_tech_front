@@ -39,22 +39,21 @@
 
 #loginForm label {
   text-align: center;
-  width: 40rem;
   width: 100%;
 }
 
-#loginForm input[type = "email"], #loginForm input[type = "password"]  {
+#loginForm input[type = "email"], #loginForm input[type = "password"], #loginForm input[type = "text"]  {
   background-color: var(--bubbles);
   border: dashed 1px var(--darkPuce);
   border-radius: 4px;
-  font-size: 1.15em;
+  font-size: 1.5rem;
   width: 70%;
-  margin-bottom: 1.7rem;
+  margin-bottom: 3.5%;
   padding: 2%;
   transition: 0.3s width ease-in-out;
 }
 
-#loginForm input[type = "email"]:focus, #loginForm input[type = "password"]:focus  {
+#loginForm input[type = "email"]:focus, #loginForm input[type = "password"]:focus, #loginForm input[type = "text"]:focus  {
   background-image: linear-gradient(var(--onyx), var(--darkPuce));
   color: ghostwhite;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

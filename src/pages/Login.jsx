@@ -17,6 +17,8 @@ function Login() {
   // const LOGIN_ENDPOINT_LOCAL = 'http://localhost:4000/login';
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(true);
+
   const [userMail, setUserMail] = React.useState('');
   const [userPassword, setUserPassword] = React.useState('');
 
@@ -79,10 +81,12 @@ function Login() {
           <label htmlFor="userPassword">
             <input
               id="userPassword"
-              type="password"
+              type={ isPasswordVisible ? 'text' : 'password' }
               name="userPassword"
               value={ userPassword }
               onChange={ ({ target }) => setUserPassword(target.value) }
+              onFocus={ () => setIsPasswordVisible(true) }
+              onBlur={ () => setIsPasswordVisible(false) }
               onKeyPress={ (event) => event.key === 'Enter'
               && registerWithEnter(event) }
               placeholder="senha"

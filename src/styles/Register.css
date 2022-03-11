@@ -1,8 +1,9 @@
 #registerPageMain {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   display: flex;
   justify-content: center;
-  padding: 2%;
+  height: 100vh;
+  padding-top: 5%;
 }
 
 #registerFormContainer {
@@ -13,48 +14,47 @@
 }
 
 #registerFormContainer img {
-  width: 200px;
-  margin-bottom: 0;
+  width: 20rem;
 }
 
 #registerFormContainer h2 {
   color: ghostwhite;
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
+  font-size: 2.5rem;
+  margin: 1% 0;
   text-align: center;
 }
 
 #registerForm {
-  background-color: #8bf3a5;
-  border-radius: 5px;
+  background-color: var(--paleGreen);
+  border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-size: 1.5rem;
   display: flex;
   flex-direction: column;
   width: 45%;
   align-items: center;
-  margin-top: 1.5%;
-  margin-bottom: 3%;
-  padding: 2% 8%;
+  margin: 1% 0 3% 0;
+  padding: 2% 4%;
 }
 
 #registerForm label {
   text-align: center;
-  width: 400px;
+  width: 45rem;
 }
 
 #registerForm input[type = "email"], #registerForm input[type = "password"], #registerForm input[type = "text"]  {
-  background-color: #e4f6f8;
-  border: dashed 1px rgb(71, 50, 71);
+  background-color: var(--bubbles);
+  border: dashed 1px var(--darkPuce);
   border-radius: 4px;
-  font-size: 1.15em;
+  font-size: 1.5rem;
   width: 70%;
-  margin-bottom: 15px;
+  margin-bottom: 1.6rem;
   padding: 2%;
   transition: 0.3s width ease-in-out;
 }
 
 #registerForm input[type = "email"]:focus, #registerForm input[type = "password"]:focus, #registerForm input[type = "text"]:focus  {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   color: ghostwhite;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   outline: none;
@@ -62,26 +62,25 @@
 }
 
 #passwordHelper {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 4%;
+  margin: 0.5% 0 4% 0;
   padding: 1% 4%;
 }
 
 #passwordHelper p {
   color: ghostwhite;
-  font-size: 0.9em;
+  font-size: 1.4rem;
   margin: 1% 0;
 }
 
 #registerTermsLabel {
   color: #282a36;
-  font-size: 1.1em;
+  font-size: 1.7rem;
   font-weight: 600;
 }
 
@@ -90,15 +89,14 @@
 }
 
 #registerBtn {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   color: ghostwhite;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   width: 40%;
   cursor: pointer;
-  font-size: 1.1em;
-  margin-top: 5%;
-  margin-bottom: 4%;
+  font-size: 1.6rem;
+  margin: 5% 0 4% 0;
   padding: 2.5%;
   transition: 0.3s width ease-in-out;
 }
@@ -109,29 +107,47 @@
 }
 
 #registerBtn:disabled {
-  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  background-image: linear-gradient(var(--btnDisabled), var(--btnDisabled));
   border: none;
   width: 40%;
 }
 
 #registerBtn:disabled:hover {
-  background-image: linear-gradient(rgba(170, 170, 170, 0.466), rgba(170, 170, 170, 0.466));
+  background-image: linear-gradient(var(--btnDisabled), var(--btnDisabled));
   cursor: default;
   box-shadow: none;
   width: 40%;
 }
 
+#registerLoader {
+  border: 0.5rem solid var(--onyx);
+  border-top: 0.5rem solid var(--paleGreen);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 2.5% 0 1% 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+
 #registerExtraLinks {
-  color: #282a36;
+  color: var(--gunMetal);
   text-decoration: overline;
-  font-size: 1.1em;
+  font-size: 1.7rem;
   font-weight: 600;
-  margin-top: 3%;
-  margin-bottom: 0;
+  margin: 2% 0 0 0;
   transition-duration: 0.3s;
 }
 
 #registerExtraLinks:hover {
-  font-size: 1.15em;
+  font-size: 1.8rem;
   text-decoration: underline;
 }

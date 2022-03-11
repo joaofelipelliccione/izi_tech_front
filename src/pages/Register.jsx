@@ -3,9 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import passwordValidator from '../shared-functions/passwordValidator';
 import mailValidator from '../shared-functions/mailValidator';
-// import registerNewUserAC from '../redux/actions/registeredUsersAC';
-// import publishedProductsAC from '../redux/actions/publishedProductsAC';
-// import createUserFavSectionAC from '../redux/actions/favoriteProductsAC';
 import iziTechLogo from '../images/izi-tech-logo.png';
 import '../styles/Register.css';
 import '../styles/Alerts.css';
@@ -17,6 +14,8 @@ function Register() {
   // const REGISTER_NEW_USER_ENDPOINT_LOCAL = 'http://localhost:4000/user/new';
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(true);
+
   const [registerUsername, setRegisterUsername] = React.useState('');
   const [registerUserMail, setRegisterUserMail] = React.useState('');
   const [registerUserPassword, setRegisterUserPassword] = React.useState('');
@@ -80,11 +79,13 @@ function Register() {
           <label htmlFor="registerUserPasswordInput">
             <input
               id="registerUserPasswordInput"
-              type="password"
+              type={ isPasswordVisible ? 'text' : 'password' }
               name="registerUserPassword"
               value={ registerUserPassword }
               onChange={ ({ target }) => setRegisterUserPassword(target.value) }
               placeholder="senha"
+              onFocus={ () => setIsPasswordVisible(true) }
+              onBlur={ () => setIsPasswordVisible(false) }
             />
           </label>
           {!(passwordValidator(registerUserPassword))
@@ -118,7 +119,7 @@ function Register() {
               fazer parte!
             </button>
           ) : (
-            <div id="loginLoader" /> // ALTERAR
+            <div id="registerLoader" />
           ) }
           <Link to="/login" id="registerExtraLinks">
             voltar
