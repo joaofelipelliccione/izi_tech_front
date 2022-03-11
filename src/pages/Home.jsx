@@ -36,7 +36,7 @@ function Home() {
         if (result.isAuthTokenExpired === true) {
           localStorage.removeItem('loginInfo');
           dispatch(setUserLogoutAC());
-          // console.log('Store Reset');
+          // Store Reset;
         }
       });
   }, []);

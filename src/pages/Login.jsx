@@ -13,8 +13,8 @@ import '../styles/Alerts.css';
 const { StatusCodes } = require('http-status-codes');
 
 function Login() {
-  // const LOGIN_ENDPOINT = 'https://izi-tech-back.herokuapp.com/login';
-  const LOGIN_ENDPOINT_LOCAL = 'http://localhost:4000/login';
+  const LOGIN_ENDPOINT = 'https://izi-tech-back.herokuapp.com/login';
+  // const LOGIN_ENDPOINT_LOCAL = 'http://localhost:4000/login';
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [userMail, setUserMail] = React.useState('');
@@ -30,7 +30,7 @@ function Login() {
       userPassword,
     });
 
-    const fetchedData = await fetch(LOGIN_ENDPOINT_LOCAL, {
+    const fetchedData = await fetch(LOGIN_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body });
@@ -94,14 +94,13 @@ function Login() {
               id="loginBtn"
               type="button"
               disabled={ !(mailValidator(userMail)
-                      && passwordValidator(userPassword)) }
+              && passwordValidator(userPassword)) }
               onClick={ signIn }
             >
               <RiLoginCircleFill />
             </button>
           ) : (
-            // eslint-disable-next-line react/self-closing-comp
-            <div id="loginLoader"></div>
+            <div id="loginLoader" />
           )}
           <Link to="/register" className="extraLinks2">
             ainda não faço parte...

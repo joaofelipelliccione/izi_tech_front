@@ -1,8 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 
 const authTokenVerifier = async () => {
-  // const VERIFY_TOKEN_ENDPOINT = 'https://izi-tech-back.herokuapp.com/verify_token';
-  const VERIFY_TOKEN_ENDPOINT_LOCAL = 'http://localhost:4000/verify_token';
+  const VERIFY_TOKEN_ENDPOINT = 'https://izi-tech-back.herokuapp.com/verify_token';
+  // const VERIFY_TOKEN_ENDPOINT_LOCAL = 'http://localhost:4000/verify_token';
 
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
 
@@ -10,7 +10,7 @@ const authTokenVerifier = async () => {
     return { isAuthTokenExpired: true };
   }
 
-  const fetchedData = await fetch(VERIFY_TOKEN_ENDPOINT_LOCAL, {
+  const fetchedData = await fetch(VERIFY_TOKEN_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

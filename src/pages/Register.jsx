@@ -1,73 +1,51 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import swal from 'sweetalert';
 import passwordValidator from '../shared-functions/passwordValidator';
 import mailValidator from '../shared-functions/mailValidator';
-import registerNewUserAC from '../redux/actions/registeredUsersAC';
-import publishedProductsAC from '../redux/actions/publishedProductsAC';
-import createUserFavSectionAC from '../redux/actions/favoriteProductsAC';
+// import registerNewUserAC from '../redux/actions/registeredUsersAC';
+// import publishedProductsAC from '../redux/actions/publishedProductsAC';
+// import createUserFavSectionAC from '../redux/actions/favoriteProductsAC';
 import iziTechLogo from '../images/izi-tech-logo.png';
 import '../styles/Register.css';
 import '../styles/Alerts.css';
 
+const { StatusCodes } = require('http-status-codes');
+
 function Register() {
+  const REGISTER_NEW_USER_ENDPOINT = 'https://izi-tech-back.herokuapp.com/user/new';
+  // const REGISTER_NEW_USER_ENDPOINT_LOCAL = 'http://localhost:4000/user/new';
+
+  const [isLoading, setIsLoading] = React.useState(false);
   const [registerUsername, setRegisterUsername] = React.useState('');
   const [registerUserMail, setRegisterUserMail] = React.useState('');
   const [registerUserPassword, setRegisterUserPassword] = React.useState('');
   const [registerTermsCheck, setRegisterTermsCheck] = React.useState(false);
   const navigate = useNavigate();
-  const registeredUsers = useSelector((state) => state.registeredUsers);
-  const dispatch = useDispatch();
 
-  const getDateOfRegister = () => {
-    const completeDate = new Date(); // Thu Dec 09 2021 08:22:25 GMT-0300 (Horário Padrão de Brasília).
-    const day = String(completeDate.getDate()).padStart(2, '0'); // Caso seja dia 1 à 9, um 0 será adicionado. Resultado: 01, 02, 03....
-    const month = String(completeDate.getMonth() + 1).padStart(2, '0'); // Caso seja mês 1 à 9, um 0 será adicionado. Resultado: 01, 02, 03....
-    const year = completeDate.getFullYear(); // 2021
-    return `${day}/${month}/${year}`;
-  };
-
-  const register = () => {
-    const registeredUsersArr = registeredUsers.registeredUsers;
-    const userObj = registeredUsersArr.find((user) => user.userMail === registerUserMail);
-    const notInformed = 'não informado';
-
-    const newUserDataObj = {
-      dateOfRegister: getDateOfRegister(),
+  const register = async () => {
+    setIsLoading(true);
+    const body = JSON.stringify({
       userName: registerUsername,
       userMail: registerUserMail,
       userPassword: registerUserPassword,
-      userBirthday: 'yyyy-mm-dd',
-      userCPF: notInformed,
-      userCellphone: notInformed,
-      userPicture: '',
-      userAddress: {
-        userCEP: notInformed,
-        userStreet: notInformed,
-        userComplement: notInformed,
-        userNeighborhood: notInformed,
-        userCity: notInformed,
-        userUF: notInformed,
-        userDDD: notInformed,
-      },
-    };
+    });
 
-    if (userObj === undefined) {
-      dispatch(registerNewUserAC(newUserDataObj));
-      dispatch(publishedProductsAC({
-        userMail: registerUserMail,
-        userPublishedProducts: [],
-      }));
-      dispatch(createUserFavSectionAC({
-        userMail: registerUserMail,
-        userFavoriteProducts: [],
-      }));
-      navigate('/register/success');
-    }
-    if (userObj !== undefined) {
-      swal(`${registerUserMail}, já é cadastrado!`, '', 'info');
+    const fetchedData = await fetch(REGISTER_NEW_USER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body });
+    const cleanData = await fetchedData.json();
+    console.log(fetchedData);
+
+    if (cleanData.code === StatusCodes.CONFLICT) {
+      setIsLoading(false);
+      swal(`O e-mail ${registerUserMail} já é cadastrado!`, '', 'info');
       navigate('/login');
+    }
+    if (cleanData.code === StatusCodes.CREATED) {
+      setIsLoading(false);
+      navigate('/register/success');
     }
   };
 
@@ -127,16 +105,21 @@ function Register() {
             estou de acordo com os termos de serviço e
             com a política de privacidade da izi tech.
           </label>
-          <button
-            id="registerBtn"
-            type="button"
-            disabled={ !(mailValidator(registerUserMail)
-            && passwordValidator(registerUserPassword)
-            && registerTermsCheck) }
-            onClick={ register }
-          >
-            fazer parte!
-          </button>
+          { !isLoading ? (
+            <button
+              id="registerBtn"
+              type="button"
+              disabled={ !(mailValidator(registerUserMail)
+              && passwordValidator(registerUserPassword)
+              && registerTermsCheck
+              && registerUsername !== '') }
+              onClick={ register }
+            >
+              fazer parte!
+            </button>
+          ) : (
+            <div id="loginLoader" /> // ALTERAR
+          ) }
           <Link to="/login" id="registerExtraLinks">
             voltar
           </Link>
