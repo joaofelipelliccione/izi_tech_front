@@ -14,7 +14,6 @@ import getLCArrayWithoutAccent from '../shared-functions/getLCArrayWithoutAccent
 import '../styles/Home.css';
 
 function Home() {
-  const jf = useSelector((state) => state.user).loginInfo; // Testando.
   const publishedProductsMacroArr = useSelector((state) => state.publishedProducts
     .publishedProducts);
   const publishedProductsArr = publishedProductsMacroArr
@@ -37,7 +36,7 @@ function Home() {
         if (result.isAuthTokenExpired === true) {
           localStorage.removeItem('loginInfo');
           dispatch(setUserLogoutAC());
-          console.log(jf);
+          // console.log('Store Reset');
         }
       });
   }, []);
