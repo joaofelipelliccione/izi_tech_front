@@ -1,8 +1,9 @@
 #registerSuccessPageMain {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
   margin-top: 0;
   padding: 4%;
 }
@@ -16,25 +17,25 @@
 
 #registerSuccessBlock1 h1 {
   color: ghostwhite;
-  font-size: 2em;
+  font-size: 2.8rem;
   margin: 0 0 1% 0;
 }
 
 #registerSuccessBlock1 span {
   color: ghostwhite;
-  font-size: 1.2em;
+  font-size: 1.85rem;
 }
 
 #registerSuccessBlock2 {
   display: flex;
-  width: 40%;
+  width: 35%;
   justify-content: space-evenly;
 }
 
 #registerSuccessBlock2 a {
   color: wheat;
   text-decoration: overline;
-  font-size: 1.2em;
+  font-size: 1.85rem;
 }
 
 #registerSuccessBlock2 a:hover {
@@ -43,7 +44,7 @@
 
 #registerSuccessIllustration1 {
   align-self: center;
-  width: 400px;
-  height: 400px;
+  width: 45rem;
+  height: 45rem;
   margin-top: 1.5%;
 }
