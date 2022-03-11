@@ -35,6 +35,7 @@ function Home() {
       .then((result) => {
         if (result.isAuthTokenExpired === true) {
           localStorage.removeItem('loginInfo');
+          console.log('Oi');
           dispatch(setUserLogoutAC());
         }
       });
