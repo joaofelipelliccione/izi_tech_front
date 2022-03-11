@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import DropdownCategories from './DropdownCategories';
-// import DropdownAvatar from './DropdownAvatar';
+import DropdownAvatar from './DropdownAvatar';
 import SubHeader from './SubHeader';
 import categoriesStructure from '../../data/categories-structure';
 import iziTechLogo from '../../images/izi-tech-logo.png';
@@ -14,7 +14,7 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
   homeSearchedItem, setHomeSearchedItem,
   onClickHomeSearchBtn, setHomeOrderBy }) {
   const location = useLocation();
-  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const categoriesArray = categoriesStructure
     .map((category) => (category.topCategoryName)); // ['smartphones e telefonia', 'informática', 'games', 'eletrônicos, áudio e vídeo', 'veículos elétricos leves'].
 
@@ -53,9 +53,9 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
             </ul>
           </nav>
           <div id="logInAndSellBtnsContainer">
-            {/* {user.userMail === ''
+            {!user.loginInfo.userId
               ? (<Link to="/login" id="loginLink">entrar</Link>)
-              : (<DropdownAvatar />)} */}
+              : (<DropdownAvatar />)}
             <Link to="/wannaSell">
               <button
                 type="button"
