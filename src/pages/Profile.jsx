@@ -1,41 +1,46 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillWarning } from 'react-icons/ai';
-import authTokenVerifier from '../shared-functions/authTokenVerifier';
+import swal from 'sweetalert';
 import userPicDefault from '../images/user-picture.png';
 import Header from '../components/header-components/Header';
 import Footer from '../components/Footer';
 import '../styles/Profile.css';
+
+const { StatusCodes } = require('http-status-codes');
 
 function Profile() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [userInfoObj, setUserInfoObj] = React.useState({});
   const NOT_INFORMED = 'não informado';
 
-  React.useEffect(() => {
-    authTokenVerifier()
-      .then((result) => {
-        if (result.isAuthTokenExpired === true) {
-          localStorage.removeItem('loginInfo');
-          dispatch(setUserLogoutAC());
-          // Store Reset;
-        }
-      });
-  }, []);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
-    const { userId, authToken } = JSON.parse(localStorage.getItem('loginInfo'));
-    const PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/${userId}`;
-    // const PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/${userId}`;
+    const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
 
-    setIsLoading(true);
-    fetch(PROFILE_ENDPOINT, { headers: { Authorization: authToken } })
-      .then((result) => result.json())
-      .then((cleanData) => {
-        setUserInfoObj(cleanData);
-        setIsLoading(false);
-      });
+    if (loginInfo === null) {
+      navigate('/');
+    }
+
+    if (loginInfo !== null) {
+      const PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
+      // const PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
+
+      setIsLoading(true);
+      fetch(PROFILE_ENDPOINT, { headers: { Authorization: loginInfo.authToken } })
+        .then((result) => result.json())
+        .then((cleanData) => {
+          if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+            navigate('/');
+            swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+          } else {
+            setUserInfoObj(cleanData);
+            setIsLoading(false);
+          }
+        });
+    }
   }, []);
 
   return (
