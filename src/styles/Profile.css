@@ -17,6 +17,27 @@
   padding: 2%;
 }
 
+#profileLoader {
+  border: 0.5rem solid var(--onyx);
+  border-top: 0.5rem solid var(--paleGreen);
+  border-radius: 50%;
+  display: flex;
+  align-self: center;
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 2%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+
 #profileContentBlock1 {
   border-top: dashed 2px #282A36;
   border-bottom: dashed 2px #282A36;
