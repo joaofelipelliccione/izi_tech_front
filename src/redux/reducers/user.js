@@ -1,4 +1,4 @@
-import { SET_LOGIN_INFO } from '../actions/userAC';
+import { SET_LOGIN_INFO, CLEAR_LOGIN_INFO } from '../actions/userAC';
 
 const INITIAL_STATE = {
   loginInfo: JSON.parse(localStorage.getItem('loginInfo')) || {},
@@ -10,6 +10,12 @@ function user(state = INITIAL_STATE, action) {
     return {
       ...state,
       loginInfo: action.loginInfo,
+    };
+
+  case CLEAR_LOGIN_INFO:
+    return {
+      ...state,
+      loginInfo: {},
     };
 
   default:

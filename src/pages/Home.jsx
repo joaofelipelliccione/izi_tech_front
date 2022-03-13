@@ -8,7 +8,7 @@ import HomeFilters from '../components/home-components/HomeFilters';
 import HomeOrderBy from '../components/home-components/HomeOrderBy';
 import HomeAdsDisplay from '../components/home-components/HomeAdsDisplay';
 import Footer from '../components/Footer';
-import setUserLogoutAC from '../redux/actions/userLogoutAC';
+import { clearLoginInfoAC } from '../redux/actions/userAC';
 import authTokenVerifier from '../shared-functions/authTokenVerifier';
 import getLCArrayWithoutAccent from '../shared-functions/getLCArrayWithoutAccent';
 import '../styles/Home.css';
@@ -35,8 +35,7 @@ function Home() {
       .then((result) => {
         if (result.isAuthTokenExpired === true) {
           localStorage.removeItem('loginInfo');
-          dispatch(setUserLogoutAC());
-          // Store Reset;
+          dispatch(clearLoginInfoAC());
         }
       });
   }, []);
