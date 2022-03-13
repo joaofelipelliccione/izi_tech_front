@@ -9,14 +9,17 @@
   --bubbles: #e4f6f8;
   --paleGreen: #8bf3a5;
   --jasper: #dd4343;
+  --pastelRed: #ff6b6b;
   --btnDisabled: rgba(170, 170, 170, 0.466);
   --darkPuce: rgb(71, 50, 71);
+  --oldLavender: rgb(119, 91, 119);
   --onyx: rgb(54, 56, 70);
   --gunMetal: #282a36;
 }
 
 html {
   font-size: 10px;
+  background-color: var(--gunMetal);
 }
 
 /* https://www.color-name.com/ */

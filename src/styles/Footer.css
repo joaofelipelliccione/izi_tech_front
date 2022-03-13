@@ -1,5 +1,5 @@
 #iziTechFooter {
-  background-color: #282A36;
+  background-color: var(--gunMetal);
   bottom: 0;
   color: white;
   /* left: 0;
@@ -7,5 +7,5 @@
   text-align: center;
   width: 100%;
   margin-top: 0;
-  padding: 2%;
+  padding: 2.5%;
 }

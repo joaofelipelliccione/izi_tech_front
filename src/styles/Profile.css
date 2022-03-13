@@ -1,5 +1,5 @@
 #profilePageMain {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   display: flex;
   justify-content: center;
   margin-top: 0;
@@ -7,13 +7,13 @@
 }
 
 #profileContentContainer {
-  background-color: #8bf3a5;
-  border-radius: 5px;
+  background-color: var(--paleGreen);
+  border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   flex-direction: column;
   width: 55%;
-  margin: 2% 0;
+  margin: 1% 0;
   padding: 2%;
 }
 
@@ -39,24 +39,24 @@
 } 
 
 #profileContentBlock1 {
-  border-top: dashed 2px #282A36;
-  border-bottom: dashed 2px #282A36;
+  border-top: dashed 0.2rem var(--gunMetal);
+  border-bottom: dashed 0.2rem var(--gunMetal);
   display: flex;
   justify-content: space-around;
   padding: 2%;
 }
 
 #profileContentBlock1 img {
-  border-radius: 5px;
+  border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   align-self: center;
-  width: 130px;
-  height: 130px;
+  width: 13rem;
+  height: 13rem;
 }
 
 #profileContentBlock1-1 {
-  border: solid 2px rgb(119, 91, 119);
-  border-radius: 5px;
+  border: solid 0.2rem var(--oldLavender);
+  border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   flex-direction: column;
@@ -65,8 +65,8 @@
 }
 
 #profileContentBlock1-1 h2 {
-  color: #282A36;
-  font-size: 1.2em;
+  color: var(--gunMetal);
+  font-size: 1.8rem;
   width: 100%;
   text-align: center;
   align-self: center;
@@ -74,15 +74,15 @@
 }
 
 #profileContentBlock2 {
-  border-bottom: dashed 2px #282A36;
+  border-bottom: dashed 0.2rem var(--gunMetal);
   display: flex;
   justify-content: space-around;
   padding: 2% 1%;
 }
 
 #profileContentBlock2-1 {
-  border: solid 2px rgb(119, 91, 119);
-  border-radius: 5px;
+  border: solid 0.2rem var(--oldLavender);
+  border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   flex-direction: column;
@@ -91,8 +91,8 @@
 }
 
 #profileContentBlock2-2 {
-  border: solid 2px rgb(119, 91, 119);
-  border-radius: 5px;
+  border: solid 0.2rem var(--oldLavender);
+  border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
   flex-direction: column;
@@ -101,14 +101,14 @@
 }
 
 #profileContentBlock2-1 h3, #profileContentBlock2-2 h3 {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
-  border-radius: 3px;
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
+  border-radius: 0.5rem;
   color: ghostwhite;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.7rem;
   width: 100%;
   margin: 0;
-  padding: 1%;
+  padding: 1% 0;
 }
 
 #profileContentBlock2-1-1, #profileContentBlock2-2-1 {
@@ -118,7 +118,7 @@
 }
 
 #profileContentBlock2-1-1 p, #profileContentBlock2-2-1 p {
-  font-size: 1.1em;
+  font-size: 1.65rem;
   width: fit-content;
   margin: 1% 0;
 }
@@ -139,16 +139,16 @@
 }
 
 #editInfoBtn {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   color: ghostwhite;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 90%;
   cursor: pointer;
-  font-size: 1.1em;
+  font-size: 1.65rem;
   padding: 5%;
   transition: 0.3s width ease-in-out;
 }
@@ -159,23 +159,23 @@
 }
 
 #deleteAccountBtn {
-  background-color: #ff6b6b;
+  background-color: var(--pastelRed);
   color: ghostwhite;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 65%;
   cursor: pointer;
-  font-size: 1.1em;
+  font-size: 1.65rem;
   padding: 5%;
   transition: 0.3s width ease-in-out;
 }
 
 #deleteAccountBtn svg, #editInfoBtn svg {
-  font-size: 1.1em;
-  margin-left: 6px;
+  font-size: 1.6rem;
+  margin-left: 0.6rem;
 }
 
 #deleteAccountBtn:hover {
