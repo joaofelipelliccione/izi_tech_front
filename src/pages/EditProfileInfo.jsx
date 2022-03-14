@@ -18,7 +18,7 @@ import EditProfileBlock2 from
 import '../styles/EditProfileInfo.css';
 
 function EditProfileInfo() {
-  const userInfoObj = useSelector((state) => state.user.allUserInfo);
+  const userInfo = useSelector((state) => state.user.allUserInfo);
   const NOT_INFORMED = 'não informado';
 
   const [dateOfRegister, setDateOfRegister] = React.useState('');
@@ -42,35 +42,35 @@ function EditProfileInfo() {
 
   React.useEffect(() => {
     setDateOfRegister(() => {
-      if (userInfoObj.dateOfRegister !== undefined) {
-        return userInfoObj.dateOfRegister.split('-').reverse().join('/');
+      if (userInfo.dateOfRegister !== undefined) {
+        return userInfo.dateOfRegister.split('-').reverse().join('/');
       }
     });
-  }, [userInfoObj]);
+  }, [userInfo]);
 
   React.useEffect(() => {
-    setEditUsername(userInfoObj.userName);
-    setEditUserMail(userInfoObj.userMail);
-    setEditUserPassword(userInfoObj.userPassword);
+    setEditUsername(userInfo.userName);
+    setEditUserMail(userInfo.userMail);
+    setEditUserPassword(userInfo.userPassword);
     setEditUserBirthday(() => {
-      if (userInfoObj.userBirthday === null) return NOT_INFORMED;
-      if (userInfoObj.userBirthday !== null && userInfoObj.userBirthday !== undefined) {
-        return userInfoObj.userBirthday.split('/').reverse().join('-');
+      if (userInfo.userBirthday === null) return NOT_INFORMED;
+      if (userInfo.userBirthday !== null && userInfo.userBirthday !== undefined) {
+        return userInfo.userBirthday.split('/').reverse().join('-');
       }
     });
-    setEditUserCPF(userInfoObj.userCPF !== null ? userInfoObj.userCPF : NOT_INFORMED);
+    setEditUserCPF(userInfo.userCPF !== null ? userInfo.userCPF : NOT_INFORMED);
     setEditUserCellphone(() => {
-      if (userInfoObj.userCellphone !== null) return userInfoObj.userCellphone;
-      if (userInfoObj.userCellphone === null) return NOT_INFORMED;
+      if (userInfo.userCellphone !== null) return userInfo.userCellphone;
+      if (userInfo.userCellphone === null) return NOT_INFORMED;
     });
     setEditUserPicture(() => {
-      if (userInfoObj.userPicture !== null) return userInfoObj.userPicture;
-      if (userInfoObj.userPicture === null) return NOT_INFORMED;
+      if (userInfo.userPicture !== null) return userInfo.userPicture;
+      if (userInfo.userPicture === null) return NOT_INFORMED;
     });
-  }, [userInfoObj]);
+  }, [userInfo]);
 
   React.useEffect(() => {
-    if (userInfoObj.userAddress === null) {
+    if (userInfo.userAddress === null) {
       setEditUserCEP(NOT_INFORMED);
       setEditUserStreet(NOT_INFORMED);
       setEditUserComplement(NOT_INFORMED);
@@ -79,16 +79,16 @@ function EditProfileInfo() {
       setEditUserUF(NOT_INFORMED);
       setEditUserDDD(NOT_INFORMED);
     }
-    if (userInfoObj.userAddress !== null && userInfoObj.userAddress !== undefined) {
-      setEditUserCEP(userInfoObj.userAddress.infoFromCep.cep);
-      setEditUserStreet(userInfoObj.userAddress.infoFromCep.street);
-      setEditUserComplement(userInfoObj.userAddress.complement);
-      setEditUserNeighborhood(userInfoObj.userAddress.infoFromCep.neighborhood);
-      setEditUserCity(userInfoObj.userAddress.infoFromCep.city);
-      setEditUserUF(userInfoObj.userAddress.infoFromCep.uf);
-      setEditUserDDD(userInfoObj.userAddress.infoFromCep.ddd);
+    if (userInfo.userAddress !== null && userInfo.userAddress !== undefined) {
+      setEditUserCEP(userInfo.userAddress.infoFromCep.cep);
+      setEditUserStreet(userInfo.userAddress.infoFromCep.street);
+      setEditUserComplement(userInfo.userAddress.complement);
+      setEditUserNeighborhood(userInfo.userAddress.infoFromCep.neighborhood);
+      setEditUserCity(userInfo.userAddress.infoFromCep.city);
+      setEditUserUF(userInfo.userAddress.infoFromCep.uf);
+      setEditUserDDD(userInfo.userAddress.infoFromCep.ddd);
     }
-  }, [userInfoObj]);
+  }, [userInfo]);
 
   const updateRegisteredInfo = () => {
     if (!cpfValidator(editUserCPF) && editUserCPF !== NOT_INFORMED) {
@@ -106,14 +106,12 @@ function EditProfileInfo() {
     } else {
       dispatch(setLoginInfoAC(editUserMail, editUserPassword));
       localStorage.setItem('userMail', editUserMail);
-      // dispatch(updateUserInfo(updatedUserDataObj, user.userMail));
       navigate('/profile');
     }
   };
 
   return (
     <div id="editProfileInfoPage">
-      {console.log(userInfoObj)}
       <Header />
       <main id="editProfileInfoPageMain">
         <form id="editProfileInfoForm">
