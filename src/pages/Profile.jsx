@@ -1,8 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillWarning } from 'react-icons/ai';
-import swal from 'sweetalert';
+import { setAllUserInfoAC } from '../redux/actions/userAC';
 import userPicDefault from '../images/user-picture.png';
 import Header from '../components/header-components/Header';
 import Footer from '../components/Footer';
@@ -15,6 +17,7 @@ function Profile() {
   const [userInfoObj, setUserInfoObj] = React.useState({});
   const NOT_INFORMED = 'não informado';
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -37,6 +40,7 @@ function Profile() {
             swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
           } else {
             setUserInfoObj(cleanData);
+            dispatch(setAllUserInfoAC(cleanData));
             setIsLoading(false);
           }
         });

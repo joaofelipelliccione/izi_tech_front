@@ -1,7 +1,8 @@
-import { SET_LOGIN_INFO, CLEAR_LOGIN_INFO } from '../actions/userAC';
+import { SET_LOGIN_INFO, CLEAR_LOGIN_INFO, SET_ALL_USER_INFO } from '../actions/userAC';
 
 const INITIAL_STATE = {
   loginInfo: JSON.parse(localStorage.getItem('loginInfo')) || {},
+  allUserInfo: {},
 };
 
 function user(state = INITIAL_STATE, action) {
@@ -16,6 +17,12 @@ function user(state = INITIAL_STATE, action) {
     return {
       ...state,
       loginInfo: {},
+    };
+
+  case SET_ALL_USER_INFO:
+    return {
+      ...state,
+      allUserInfo: action.userInfoObj,
     };
 
   default:
