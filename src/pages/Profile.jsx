@@ -64,7 +64,11 @@ function Profile() {
               <div id="profileContentBlock1-1">
                 <h2>{userInfoObj.userName}</h2>
                 <h2>{userInfoObj.userMail}</h2>
-                <h2>{`membro do izi tech desde ${userInfoObj.dateOfRegister}`}</h2>
+                <h2>
+                  {userInfoObj.dateOfRegister !== undefined && (
+                    `membro do izi tech desde ${userInfoObj.dateOfRegister
+                      .split('-').reverse().join('/')}`)}
+                </h2>
               </div>
             </div>
           )}

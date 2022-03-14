@@ -55,7 +55,7 @@ function EditProfileInfo() {
     setEditUserBirthday(() => {
       if (userInfo.userBirthday === null) return NOT_INFORMED;
       if (userInfo.userBirthday !== null && userInfo.userBirthday !== undefined) {
-        return userInfo.userBirthday.split('/').reverse().join('-');
+        return userInfo.userBirthday.split('-').reverse().join('/');
       }
     });
     setEditUserCPF(userInfo.userCPF !== null ? userInfo.userCPF : NOT_INFORMED);
@@ -89,6 +89,12 @@ function EditProfileInfo() {
       setEditUserDDD(userInfo.userAddress.infoFromCep.ddd);
     }
   }, [userInfo]);
+
+  React.useEffect(() => { // Ao realizar refresh na página...
+    if (dateOfRegister === undefined) {
+      navigate('/profile');
+    }
+  }, [dateOfRegister]);
 
   const updateRegisteredInfo = () => {
     if (!cpfValidator(editUserCPF) && editUserCPF !== NOT_INFORMED) {
