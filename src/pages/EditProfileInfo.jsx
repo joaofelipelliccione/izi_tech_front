@@ -55,7 +55,7 @@ function EditProfileInfo() {
     setEditUserBirthday(() => {
       if (userInfo.userBirthday === null) return NOT_INFORMED;
       if (userInfo.userBirthday !== null && userInfo.userBirthday !== undefined) {
-        return userInfo.userBirthday.split('-').reverse().join('/');
+        return userInfo.userBirthday;
       }
     });
     setEditUserCPF(userInfo.userCPF !== null ? userInfo.userCPF : NOT_INFORMED);
@@ -70,23 +70,30 @@ function EditProfileInfo() {
   }, [userInfo]);
 
   React.useEffect(() => {
-    if (userInfo.userAddress === null) {
-      setEditUserCEP(NOT_INFORMED);
-      setEditUserStreet(NOT_INFORMED);
-      setEditUserComplement(NOT_INFORMED);
-      setEditUserNeighborhood(NOT_INFORMED);
-      setEditUserCity(NOT_INFORMED);
-      setEditUserUF(NOT_INFORMED);
-      setEditUserDDD(NOT_INFORMED);
-    }
-    if (userInfo.userAddress !== null && userInfo.userAddress !== undefined) {
-      setEditUserCEP(userInfo.userAddress.infoFromCep.cep);
-      setEditUserStreet(userInfo.userAddress.infoFromCep.street);
-      setEditUserComplement(userInfo.userAddress.complement);
-      setEditUserNeighborhood(userInfo.userAddress.infoFromCep.neighborhood);
-      setEditUserCity(userInfo.userAddress.infoFromCep.city);
-      setEditUserUF(userInfo.userAddress.infoFromCep.uf);
-      setEditUserDDD(userInfo.userAddress.infoFromCep.ddd);
+    if (userInfo.userAddress !== undefined) {
+      if (userInfo.userAddress.infoFromCep === null) {
+        setEditUserCEP(NOT_INFORMED);
+        setEditUserStreet(NOT_INFORMED);
+        setEditUserComplement(NOT_INFORMED);
+        setEditUserNeighborhood(NOT_INFORMED);
+        setEditUserCity(NOT_INFORMED);
+        setEditUserUF(NOT_INFORMED);
+        setEditUserDDD(NOT_INFORMED);
+      }
+      if (userInfo.userAddress.infoFromCep !== null) {
+        setEditUserCEP(userInfo.userAddress.infoFromCep.cep);
+        setEditUserStreet(userInfo.userAddress.infoFromCep.street);
+        setEditUserComplement(() => {
+          if (userInfo.userAddress.complement === null) return NOT_INFORMED;
+          if (userInfo.userAddress.complement !== null) {
+            return userInfo.userAddress.complement;
+          }
+        });
+        setEditUserNeighborhood(userInfo.userAddress.infoFromCep.neighborhood);
+        setEditUserCity(userInfo.userAddress.infoFromCep.city);
+        setEditUserUF(userInfo.userAddress.infoFromCep.uf);
+        setEditUserDDD(userInfo.userAddress.infoFromCep.ddd);
+      }
     }
   }, [userInfo]);
 

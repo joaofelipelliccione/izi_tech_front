@@ -97,25 +97,24 @@ function Profile() {
             </div>
             <div id="profileContentBlock2-2">
               <h3>Endereço</h3>
-              {userInfoObj.userAddress === null ? (
-                <div id="profileContentBlock2-2-1">
-                  <p>{`cep: ${NOT_INFORMED}`}</p>
-                  <p>{`logradouro: ${NOT_INFORMED}`}</p>
-                  <p>{`complemento: ${NOT_INFORMED}`}</p>
-                  <p>{`bairro: ${NOT_INFORMED}`}</p>
-                  <p>{`cidade: ${NOT_INFORMED}`}</p>
-                  <p>{`uf: ${NOT_INFORMED}`}</p>
-                  <p>{`ddd: ${NOT_INFORMED}`}</p>
-                </div>
-              ) : (
-                userInfoObj.userAddress && (
+              {userInfoObj.userAddress !== undefined && (
+                userInfoObj.userAddress.infoFromCep === null ? (
+                  <div id="profileContentBlock2-2-1">
+                    <p>{`cep: ${NOT_INFORMED}`}</p>
+                    <p>{`logradouro: ${NOT_INFORMED}`}</p>
+                    <p>{`complemento: ${NOT_INFORMED}`}</p>
+                    <p>{`bairro: ${NOT_INFORMED}`}</p>
+                    <p>{`cidade: ${NOT_INFORMED}`}</p>
+                    <p>{`uf: ${NOT_INFORMED}`}</p>
+                    <p>{`ddd: ${NOT_INFORMED}`}</p>
+                  </div>
+                ) : (
                   <div id="profileContentBlock2-2-1">
                     <p>{`cep: ${userInfoObj.userAddress.infoFromCep.cep}`}</p>
                     <p>{`logradouro: ${userInfoObj.userAddress.infoFromCep.street}`}</p>
                     <p>
                       {`complemento: ${userInfoObj.userAddress.complement === null ? (
-                        NOT_INFORMED) : (
-                        userInfoObj.userAddress.complement)}`}
+                        NOT_INFORMED) : (userInfoObj.userAddress.complement)}`}
                     </p>
                     <p>{`bairro: ${userInfoObj.userAddress.infoFromCep.neighborhood}`}</p>
                     <p>{`cidade: ${userInfoObj.userAddress.infoFromCep.city}`}</p>
