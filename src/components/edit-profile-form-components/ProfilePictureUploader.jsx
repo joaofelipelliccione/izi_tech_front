@@ -19,6 +19,7 @@ function ProfilePictureUploader({
         {editUserPicture === '' ? 'adicionar foto de perfil!' : 'alterar foto de perfil!'}
         <input
           id="profilePicUploaderInput"
+          name="profilePicUploaderInput"
           type="file"
           onChange={ onSelectImage }
           accept="image/*"
