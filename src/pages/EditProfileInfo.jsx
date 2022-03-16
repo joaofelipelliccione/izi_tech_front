@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { BsSave2 } from 'react-icons/bs';
 import { AiOutlineRollback } from 'react-icons/ai';
 import Header from '../components/header-components/Header';
 import Footer from '../components/Footer';
-import setLoginInfoAC from '../redux/actions/userAC';
 import mailValidator from '../shared-functions/mailValidator';
 import passwordValidator from '../shared-functions/passwordValidator';
 import cpfValidator from '../shared-functions/cpfValidator';
@@ -17,9 +16,13 @@ import EditProfileBlock2 from
 '../components/edit-profile-form-components/EditProfileBlock2';
 import '../styles/EditProfileInfo.css';
 
+const { StatusCodes } = require('http-status-codes');
+
 function EditProfileInfo() {
   const userInfo = useSelector((state) => state.user.allUserInfo);
   const NOT_INFORMED = 'não informado';
+
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [dateOfRegister, setDateOfRegister] = React.useState('');
   const [editUsername, setEditUsername] = React.useState('');
@@ -37,7 +40,6 @@ function EditProfileInfo() {
   const [editUserUF, setEditUserUF] = React.useState('');
   const [editUserDDD, setEditUserDDD] = React.useState('');
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -103,7 +105,48 @@ function EditProfileInfo() {
     }
   }, [dateOfRegister]);
 
-  const updateRegisteredInfo = () => {
+  const infoToUpdate = {
+    userName: editUsername,
+    userPassword: editUserPassword,
+    userBirthday: editUserBirthday === NOT_INFORMED ? null : editUserBirthday,
+    userCPF: editUserCPF === NOT_INFORMED ? null : editUserCPF,
+    userCellphone: editUserCellphone === NOT_INFORMED ? null : editUserCellphone,
+    userAddressId: userInfo.userAddress === undefined ? 0 : (
+      userInfo.userAddress.userAddressId),
+    cep: editUserCEP === NOT_INFORMED ? null : editUserCEP,
+    street: editUserStreet === NOT_INFORMED ? null : editUserStreet,
+    complement: editUserComplement === NOT_INFORMED ? null : editUserComplement,
+    neighborhood: editUserNeighborhood === NOT_INFORMED ? null : editUserNeighborhood,
+    city: editUserCity === NOT_INFORMED ? null : editUserCity,
+    uf: editUserUF === NOT_INFORMED ? null : editUserUF,
+    ddd: editUserDDD === NOT_INFORMED ? null : editUserDDD,
+  };
+
+  const fetchToUpdateRegisteredInfo = async () => {
+    const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+    // const EDIT_PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/update/${loginInfo.userId}`;
+    const EDIT_PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/update/${loginInfo.userId}`;
+
+    setIsLoading(true);
+    const body = JSON.stringify(infoToUpdate);
+
+    const fetchedData = await fetch(EDIT_PROFILE_ENDPOINT_LOCAL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
+      body });
+    const cleanData = await fetchedData.json();
+
+    if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+      setIsLoading(false);
+      navigate('/');
+      swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+    } else {
+      setIsLoading(false);
+      navigate('/profile');
+    }
+  };
+
+  const updateRegisteredInfo = async () => {
     if (!cpfValidator(editUserCPF) && editUserCPF !== NOT_INFORMED) {
       swal('CPF', 'Por favor, digite o CPF você mesmo, '
         + 'sem utilizar o preenchimento automático. '
@@ -117,15 +160,14 @@ function EditProfileInfo() {
       swal('CEP', 'Por favor, pressione o botão de pesquisar CEP, '
         + 'para que as informações de endereço sejam preenchidas.', 'info');
     } else {
-      dispatch(setLoginInfoAC(editUserMail, editUserPassword));
-      localStorage.setItem('userMail', editUserMail);
-      navigate('/profile');
+      await fetchToUpdateRegisteredInfo();
     }
   };
 
   return (
     <div id="editProfileInfoPage">
       <Header />
+      {console.log(isLoading)}
       <main id="editProfileInfoPageMain">
         <form id="editProfileInfoForm">
           <EditProfileBlock1
@@ -160,29 +202,31 @@ function EditProfileInfo() {
             editUserDDD={ editUserDDD }
             setEditUserDDD={ setEditUserDDD }
           />
-          <div id="editProfileBtnsContainer">
-            <button
-              id="editProfileSaveBtn"
-              type="button"
-              onClick={ updateRegisteredInfo }
-              disabled={ !(mailValidator(editUserMail)
-                && passwordValidator(editUserPassword)
-                && editUsername !== '') }
-            >
-              salvar informações
-              {' '}
-              <BsSave2 />
-            </button>
-            <button
-              id="editProfileCancelBtn"
-              type="button"
-              onClick={ () => navigate('/profile') }
-            >
-              cancelar
-              {' '}
-              <AiOutlineRollback />
-            </button>
-          </div>
+          {!isLoading ? (
+            <div id="editProfileBtnsContainer">
+              <button
+                id="editProfileSaveBtn"
+                type="button"
+                onClick={ updateRegisteredInfo }
+                disabled={ !(mailValidator(editUserMail)
+                  && passwordValidator(editUserPassword)
+                  && editUsername !== '') }
+              >
+                salvar informações
+                {' '}
+                <BsSave2 />
+              </button>
+              <button
+                id="editProfileCancelBtn"
+                type="button"
+                onClick={ () => navigate('/profile') }
+              >
+                cancelar
+                {' '}
+                <AiOutlineRollback />
+              </button>
+            </div>
+          ) : (<div id="EditProfileInfoLoader" />)}
         </form>
       </main>
       <Footer />

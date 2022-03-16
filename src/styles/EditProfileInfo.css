@@ -285,3 +285,24 @@ input[type="file"] {
   box-shadow: none;
   width: 40%;
 }
+
+#EditProfileInfoLoader {
+  border: 0.5rem solid var(--onyx);
+  border-top: 0.5rem solid var(--paleGreen);
+  border-radius: 50%;
+  display: flex;
+  align-self: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 3% 0 0 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
