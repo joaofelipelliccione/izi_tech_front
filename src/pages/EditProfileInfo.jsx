@@ -167,7 +167,6 @@ function EditProfileInfo() {
   return (
     <div id="editProfileInfoPage">
       <Header />
-      {console.log(isLoading)}
       <main id="editProfileInfoPageMain">
         <form id="editProfileInfoForm">
           <EditProfileBlock1
