@@ -150,8 +150,8 @@ function EditProfileInfo() {
       navigate('/');
       swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
     } else {
-      infoToUpdate.userPicture = `https://storage.cloud.google.com/gcsb-izi-tech/${loginInfo.userId}.jpeg`;
-      loginInfoFromLS.userPicture = `https://storage.cloud.google.com/gcsb-izi-tech/${loginInfo.userId}.jpeg`;
+      infoToUpdate.userPicture = `https://storage.googleapis.com/gcsb-izi-tech-profile-pictures/${loginInfo.userId}.jpeg`;
+      loginInfoFromLS.userPicture = `https://storage.googleapis.com/gcsb-izi-tech-profile-pictures/${loginInfo.userId}.jpeg`;
       localStorage.setItem('loginInfo', JSON.stringify(loginInfoFromLS));
       dispatch(setLoginInfoAC(loginInfoFromLS));
     }
