@@ -35,7 +35,6 @@ function Register() {
       headers: { 'Content-Type': 'application/json' },
       body });
     const cleanData = await fetchedData.json();
-    console.log(fetchedData);
 
     if (cleanData.code === StatusCodes.CONFLICT) {
       setIsLoading(false);

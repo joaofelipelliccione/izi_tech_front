@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ProfilePictureUploader from './ProfilePictureUploader';
 
 function EditProfileBlock1({
+  userPicPreview, setUserPicPreview,
   editUserPicture, setEditUserPicture,
   editUsername, setEditUsername,
   editUserMail,
@@ -10,6 +11,8 @@ function EditProfileBlock1({
   return (
     <div id="editProfileBlock1">
       <ProfilePictureUploader
+        userPicPreview={ userPicPreview }
+        setUserPicPreview={ setUserPicPreview }
         editUserPicture={ editUserPicture }
         setEditUserPicture={ setEditUserPicture }
       />
@@ -38,6 +41,8 @@ function EditProfileBlock1({
 }
 
 EditProfileBlock1.propTypes = {
+  userPicPreview: PropTypes.string.isRequired,
+  setUserPicPreview: PropTypes.func.isRequired,
   editUserPicture: PropTypes.string.isRequired,
   setEditUserPicture: PropTypes.func.isRequired,
   editUsername: PropTypes.string.isRequired,

@@ -1,5 +1,8 @@
+/* eslint-disable complexity */
+/* eslint-disable max-lines */
+
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { BsSave2 } from 'react-icons/bs';
@@ -10,6 +13,7 @@ import mailValidator from '../shared-functions/mailValidator';
 import passwordValidator from '../shared-functions/passwordValidator';
 import cpfValidator from '../shared-functions/cpfValidator';
 import cellphoneValidator from '../shared-functions/cellphoneValidator';
+import setLoginInfoAC from '../redux/actions/userAC';
 import EditProfileBlock1 from
 '../components/edit-profile-form-components/EditProfileBlock1';
 import EditProfileBlock2 from
@@ -20,10 +24,12 @@ const { StatusCodes } = require('http-status-codes');
 
 function EditProfileInfo() {
   const userInfo = useSelector((state) => state.user.allUserInfo);
+  const loginInfo = useSelector((state) => state.user.loginInfo);
+  const loginInfoFromLS = JSON.parse(localStorage.getItem('loginInfo'));
+
   const NOT_INFORMED = 'não informado';
 
   const [isLoading, setIsLoading] = React.useState(false);
-
   const [dateOfRegister, setDateOfRegister] = React.useState('');
   const [editUsername, setEditUsername] = React.useState('');
   const [editUserMail, setEditUserMail] = React.useState('');
@@ -31,6 +37,7 @@ function EditProfileInfo() {
   const [editUserBirthday, setEditUserBirthday] = React.useState('');
   const [editUserCPF, setEditUserCPF] = React.useState('');
   const [editUserCellphone, setEditUserCellphone] = React.useState('');
+  const [userPicPreview, setUserPicPreview] = React.useState('');
   const [editUserPicture, setEditUserPicture] = React.useState('');
   const [editUserCEP, setEditUserCEP] = React.useState('');
   const [editUserStreet, setEditUserStreet] = React.useState('');
@@ -41,6 +48,7 @@ function EditProfileInfo() {
   const [editUserDDD, setEditUserDDD] = React.useState('');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setDateOfRegister(() => {
@@ -67,7 +75,7 @@ function EditProfileInfo() {
     });
     setEditUserPicture(() => {
       if (userInfo.userPicture !== null) return userInfo.userPicture;
-      if (userInfo.userPicture === null) return NOT_INFORMED;
+      if (userInfo.userPicture === null) return '';
     });
   }, [userInfo]);
 
@@ -111,6 +119,7 @@ function EditProfileInfo() {
     userBirthday: editUserBirthday === NOT_INFORMED ? null : editUserBirthday,
     userCPF: editUserCPF === NOT_INFORMED ? null : editUserCPF,
     userCellphone: editUserCellphone === NOT_INFORMED ? null : editUserCellphone,
+    userPicture: editUserPicture === '' ? null : editUserPicture,
     userAddressId: userInfo.userAddress === undefined ? 0 : (
       userInfo.userAddress.userAddressId),
     cep: editUserCEP === NOT_INFORMED ? null : editUserCEP,
@@ -122,12 +131,36 @@ function EditProfileInfo() {
     ddd: editUserDDD === NOT_INFORMED ? null : editUserDDD,
   };
 
+  const fetchToUpdateUserPicture = async () => {
+    // const EDIT_PROFILE_PIC_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/update/profile_picture/${loginInfo.userId}`;
+    const EDIT_PROFILE_PIC_ENDPOINT_LOCAL = `http://localhost:4000/user/update/profile_picture/${loginInfo.userId}`;
+
+    const formData = new FormData();
+    formData.append('profilePicUploaderInput', editUserPicture);
+
+    const fetchedData = await fetch(EDIT_PROFILE_PIC_ENDPOINT_LOCAL, {
+      method: 'PUT',
+      headers: {
+        Authorization: loginInfo.authToken,
+      },
+      body: formData });
+    const cleanData = await fetchedData.json();
+
+    if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+      navigate('/');
+      swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+    } else {
+      infoToUpdate.userPicture = 'NOVO_CAMINHO_IMAGEM';
+      loginInfoFromLS.userPicture = 'NOVO_CAMINHO_IMAGEM';
+      localStorage.setItem('loginInfo', JSON.stringify(loginInfoFromLS));
+      dispatch(setLoginInfoAC(loginInfoFromLS));
+    }
+  };
+
   const fetchToUpdateRegisteredInfo = async () => {
-    const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
     // const EDIT_PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/update/${loginInfo.userId}`;
     const EDIT_PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/update/${loginInfo.userId}`;
 
-    setIsLoading(true);
     const body = JSON.stringify(infoToUpdate);
 
     const fetchedData = await fetch(EDIT_PROFILE_ENDPOINT_LOCAL, {
@@ -137,12 +170,8 @@ function EditProfileInfo() {
     const cleanData = await fetchedData.json();
 
     if (cleanData.code === StatusCodes.UNAUTHORIZED) {
-      setIsLoading(false);
       navigate('/');
       swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
-    } else {
-      setIsLoading(false);
-      navigate('/profile');
     }
   };
 
@@ -160,7 +189,13 @@ function EditProfileInfo() {
       swal('CEP', 'Por favor, pressione o botão de pesquisar CEP, '
         + 'para que as informações de endereço sejam preenchidas.', 'info');
     } else {
+      setIsLoading(true);
+      if (typeof editUserPicture === 'object') {
+        await fetchToUpdateUserPicture();
+      }
       await fetchToUpdateRegisteredInfo();
+      setIsLoading(false);
+      navigate('/profile');
     }
   };
 
@@ -170,6 +205,8 @@ function EditProfileInfo() {
       <main id="editProfileInfoPageMain">
         <form id="editProfileInfoForm">
           <EditProfileBlock1
+            userPicPreview={ userPicPreview }
+            setUserPicPreview={ setUserPicPreview }
             editUserPicture={ editUserPicture }
             setEditUserPicture={ setEditUserPicture }
             editUsername={ editUsername }
