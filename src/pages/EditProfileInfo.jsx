@@ -150,8 +150,8 @@ function EditProfileInfo() {
       navigate('/');
       swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
     } else {
-      infoToUpdate.userPicture = 'NOVO_CAMINHO_IMAGEM';
-      loginInfoFromLS.userPicture = 'NOVO_CAMINHO_IMAGEM';
+      infoToUpdate.userPicture = `https://storage.cloud.google.com/gcsb-izi-tech/${loginInfo.userId}.jpeg`;
+      loginInfoFromLS.userPicture = `https://storage.cloud.google.com/gcsb-izi-tech/${loginInfo.userId}.jpeg`;
       localStorage.setItem('loginInfo', JSON.stringify(loginInfoFromLS));
       dispatch(setLoginInfoAC(loginInfoFromLS));
     }
