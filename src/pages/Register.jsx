@@ -36,6 +36,11 @@ function Register() {
       body });
     const cleanData = await fetchedData.json();
 
+    if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+      setIsLoading(false);
+      return swal('Algo deu errado...', 'Por favor, '
+      + 'tente novamente em alguns minutos.', 'error');
+    }
     if (cleanData.code === StatusCodes.CONFLICT) {
       setIsLoading(false);
       swal(`O e-mail ${registerUserMail} já é cadastrado!`, '', 'info');

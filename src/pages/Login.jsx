@@ -38,6 +38,11 @@ function Login() {
       body });
     const cleanData = await fetchedData.json();
 
+    if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+      setIsLoading(false);
+      return swal('Algo deu errado...', 'Por favor, '
+      + 'tente novamente em alguns minutos.', 'error');
+    }
     if (cleanData.code === StatusCodes.NOT_FOUND) {
       setIsLoading(false);
       swal('Usuário não cadastrado...', 'Faça parte, agora mesmo!', 'info');

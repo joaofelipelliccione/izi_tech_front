@@ -8,7 +8,7 @@ import HomeFilters from '../components/home-components/HomeFilters';
 import HomeOrderBy from '../components/home-components/HomeOrderBy';
 import HomeAdsDisplay from '../components/home-components/HomeAdsDisplay';
 import Footer from '../components/Footer';
-import { clearLoginInfoAC, clearAllUserInfoAC } from '../redux/actions/userAC';
+import { clearLoginInfoAC, clearAllUserInfoAC, setAllUserInfoAC } from '../redux/actions/userAC';
 import authTokenVerifier from '../shared-functions/authTokenVerifier';
 import getLCArrayWithoutAccent from '../shared-functions/getLCArrayWithoutAccent';
 import '../styles/Home.css';
@@ -37,6 +37,16 @@ function Home() {
           localStorage.removeItem('loginInfo');
           dispatch(clearLoginInfoAC());
           dispatch(clearAllUserInfoAC());
+        } else {
+          const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+          // const PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
+          const PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
+
+          fetch(PROFILE_ENDPOINT_LOCAL, { headers: { Authorization: loginInfo.authToken } })
+            .then((res) => res.json())
+            .then((cleanData) => {
+              dispatch(setAllUserInfoAC(cleanData));
+            });
         }
       });
   }, []);
