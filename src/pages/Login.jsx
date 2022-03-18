@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { RiLoginCircleFill } from 'react-icons/ri';
-import swal from 'sweetalert';
+import alerts from '../shared-functions/alerts';
 import mailValidator from '../shared-functions/mailValidator';
 import passwordValidator from '../shared-functions/passwordValidator';
 import setLoginInfoAC from '../redux/actions/userAC';
@@ -40,17 +40,16 @@ function Login() {
 
     if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
       setIsLoading(false);
-      return swal('Algo deu errado...', 'Por favor, '
-      + 'tente novamente em alguns minutos.', 'error');
+      alerts();
     }
     if (cleanData.code === StatusCodes.NOT_FOUND) {
       setIsLoading(false);
-      swal('Usuário não cadastrado...', 'Faça parte, agora mesmo!', 'info');
+      alerts('userNotRegistered');
       navigate('/register');
     }
     if (cleanData.code === StatusCodes.FORBIDDEN) {
       setIsLoading(false);
-      swal('Senha incorreta', '', 'error');
+      alerts('incorrectPassword');
     }
     if (cleanData.authToken) {
       localStorage.setItem('loginInfo', JSON.stringify(cleanData));

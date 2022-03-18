@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
+import alerts from '../shared-functions/alerts';
 import passwordValidator from '../shared-functions/passwordValidator';
 import mailValidator from '../shared-functions/mailValidator';
 import iziTechLogo from '../images/izi-tech-logo.png';
@@ -38,8 +38,7 @@ function Register() {
 
     if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
       setIsLoading(false);
-      return swal('Algo deu errado...', 'Por favor, '
-      + 'tente novamente em alguns minutos.', 'error');
+      alerts();
     }
     if (cleanData.code === StatusCodes.CONFLICT) {
       setIsLoading(false);

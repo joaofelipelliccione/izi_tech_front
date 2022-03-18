@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert';
+import alerts from '../../shared-functions/alerts';
 import userPicDefault from '../../images/user-picture.png';
 
 function ProfilePictureUploader({
@@ -14,8 +14,7 @@ function ProfilePictureUploader({
       setUserPicPreview(URL.createObjectURL(target.files[0]));
       setEditUserPicture(target.files[0]);
     } else {
-      return swal('Tamanho de imagem', 'Por favor, opte por uma imagem de, até, '
-      + '1,5 MB.', 'info');
+      alerts('imgTooBig');
     }
   };
 

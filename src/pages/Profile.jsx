@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillWarning } from 'react-icons/ai';
+import alerts from '../shared-functions/alerts';
 import { setAllUserInfoAC } from '../redux/actions/userAC';
 import userPicDefault from '../images/user-picture.png';
 import Header from '../components/header-components/Header';
@@ -38,7 +38,7 @@ function Profile() {
           if (cleanData.code === StatusCodes.UNAUTHORIZED) {
             setIsLoading(false);
             navigate('/');
-            swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+            alerts('expiredSession');
           } else {
             setUserInfoObj(cleanData);
             dispatch(setAllUserInfoAC(cleanData));

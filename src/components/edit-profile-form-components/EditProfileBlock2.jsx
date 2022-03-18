@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert';
 import { BsSearch } from 'react-icons/bs';
+import alerts from '../../shared-functions/alerts';
 import passwordValidator from '../../shared-functions/passwordValidator';
 import cepValidator from '../../shared-functions/cepValidator';
 
@@ -19,7 +19,7 @@ function EditProfileBlock2({
 
   const checkPasswordOnBlur = (password) => {
     if (passwordValidator(password) === false) {
-      swal('Senha', 'A senha está fora dos padrões requeridos, favor revisá-la.', 'info');
+      alerts('passwordOutsideFormat');
     }
   };
 
@@ -34,8 +34,7 @@ function EditProfileBlock2({
 
     if (cpf.length < eleven || formattedCPF.length < eleven) {
       setEditUserCPF(notInformed);
-      swal('CEP', 'O código postal deve apresentar exatamente 8 dígitos, '
-        + 'sem a presença de hífen. Favor revisá-lo.', 'info');
+      alerts('cpfOutsideFormat');
     }
   };
 
@@ -50,8 +49,7 @@ function EditProfileBlock2({
 
     if (cellphoneNumber.length < eleven || formattedNumber.length < eleven) {
       setEditUserCellphone(notInformed);
-      swal('Celular', 'O número deve incluir o DDD, porém '
-        + 'sem hífen e/ou parênteses. Favor revisá-lo.', 'info');
+      alerts('cellphoneOutsideFormat');
     }
   };
 
@@ -65,8 +63,7 @@ function EditProfileBlock2({
 
     if (CEP.length < eight || formattedCEP.length < eight) {
       setEditUserCEP(notInformed);
-      swal('CEP', 'O código postal deve apresentar exatamente 8 dígitos, '
-        + 'sem a presença de hífen. Favor revisá-lo.', 'info');
+      alerts('cepOutsideFormat');
     }
   };
 

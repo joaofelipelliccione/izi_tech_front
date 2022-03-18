@@ -4,9 +4,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
 import { BsSave2 } from 'react-icons/bs';
 import { AiOutlineRollback } from 'react-icons/ai';
+import alerts from '../shared-functions/alerts';
 import Header from '../components/header-components/Header';
 import Footer from '../components/Footer';
 import mailValidator from '../shared-functions/mailValidator';
@@ -167,17 +167,12 @@ function EditProfileInfo() {
   // eslint-disable-next-line sonarjs/cognitive-complexity
   const updateRegisteredInfo = async () => {
     if (!cpfValidator(editUserCPF) && editUserCPF !== NOT_INFORMED) {
-      swal('CPF', 'Por favor, digite o CPF você mesmo, '
-        + 'sem utilizar o preenchimento automático. '
-        + 'exemplo: 18055917701', 'info');
+      alerts('autoFillCpf');
     } else if (!cellphoneValidator(editUserCellphone)
       && editUserCellphone !== NOT_INFORMED) {
-      swal('Celular', 'Por favor, digite o número de celular você mesmo, '
-        + 'sem utilizar o preenchimento automático. '
-        + 'Exemplo: 21912345678', 'info');
+      alerts('autoFillCellphone');
     } else if (editUserCEP !== NOT_INFORMED && editUserStreet === NOT_INFORMED) {
-      swal('CEP', 'Por favor, pressione o botão de pesquisar CEP, '
-        + 'para que as informações de endereço sejam preenchidas.', 'info');
+      alerts('cepBtnNotPressed');
     } else {
       setIsLoading(true);
 
@@ -185,12 +180,11 @@ function EditProfileInfo() {
         const cleanData = await fetchToUpdateUserPicture();
         if (cleanData.code === StatusCodes.UNAUTHORIZED) {
           navigate('/');
-          return swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+          alerts('expiredSession');
         }
         if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
           navigate('/');
-          return swal('Algo deu errado...', 'Por favor, '
-          + 'tente novamente em alguns minutos.', 'error');
+          alerts();
         }
         if (cleanData.code === StatusCodes.OK) {
           infoToUpdate.userPicture = cleanData.imgSrc;
@@ -203,12 +197,11 @@ function EditProfileInfo() {
       const cleanData = await fetchToUpdateRegisteredInfo();
       if (cleanData.code === StatusCodes.UNAUTHORIZED) {
         navigate('/');
-        return swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+        alerts('expiredSession');
       }
       if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
         navigate('/');
-        return swal('Algo deu errado...', 'Por favor, '
-        + 'tente novamente em alguns minutos.', 'error');
+        alerts();
       }
       setIsLoading(false);
       navigate('/profile');
