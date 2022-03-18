@@ -10,8 +10,8 @@ import '../styles/Alerts.css';
 const { StatusCodes } = require('http-status-codes');
 
 function Register() {
-  // const REGISTER_NEW_USER_ENDPOINT = 'https://izi-tech-back.herokuapp.com/user/new';
-  const REGISTER_NEW_USER_ENDPOINT_LOCAL = 'http://localhost:4000/user/new';
+  const REGISTER_NEW_USER_ENDPOINT = 'https://izi-tech-back.herokuapp.com/user/new';
+  // const REGISTER_NEW_USER_ENDPOINT_LOCAL = 'http://localhost:4000/user/new';
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(true);
@@ -30,7 +30,7 @@ function Register() {
       userPassword: registerUserPassword,
     });
 
-    const fetchedData = await fetch(REGISTER_NEW_USER_ENDPOINT_LOCAL, {
+    const fetchedData = await fetch(REGISTER_NEW_USER_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body });

@@ -39,10 +39,10 @@ function Home() {
           dispatch(clearAllUserInfoAC());
         } else {
           const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
-          // const PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
-          const PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
+          const PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
+          // const PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
 
-          fetch(PROFILE_ENDPOINT_LOCAL, { headers: { Authorization: loginInfo.authToken } })
+          fetch(PROFILE_ENDPOINT, { headers: { Authorization: loginInfo.authToken } })
             .then((res) => res.json())
             .then((cleanData) => {
               dispatch(setAllUserInfoAC(cleanData));

@@ -52,7 +52,7 @@ function alerts(alertName) {
     break;
   default:
     swal('Desculpe o transtorno, algo deu errado...', 'Faremos o possível para voltar à '
-    + 'normalidade o quanto antes. Obrigado pelo compreensão!', 'info');
+    + 'normalidade o quanto antes. Obrigado pela compreensão!', 'info');
   }
 }
 

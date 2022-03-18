@@ -132,13 +132,13 @@ function EditProfileInfo() {
   };
 
   const fetchToUpdateUserPicture = async () => {
-    // const EDIT_PROFILE_PIC_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/update/profile_picture/${loginInfo.userId}`;
-    const EDIT_PROFILE_PIC_ENDPOINT_LOCAL = `http://localhost:4000/user/update/profile_picture/${loginInfo.userId}`;
+    const EDIT_PROFILE_PIC_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/update/profile_picture/${loginInfo.userId}`;
+    // const EDIT_PROFILE_PIC_ENDPOINT_LOCAL = `http://localhost:4000/user/update/profile_picture/${loginInfo.userId}`;
 
     const formData = new FormData();
     formData.append('profilePicUploaderInput', editUserPicture);
 
-    const fetchedData = await fetch(EDIT_PROFILE_PIC_ENDPOINT_LOCAL, {
+    const fetchedData = await fetch(EDIT_PROFILE_PIC_ENDPOINT, {
       method: 'PUT',
       headers: {
         Authorization: loginInfo.authToken,
@@ -150,12 +150,12 @@ function EditProfileInfo() {
   };
 
   const fetchToUpdateRegisteredInfo = async () => {
-    // const EDIT_PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/update/${loginInfo.userId}`;
-    const EDIT_PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/update/${loginInfo.userId}`;
+    const EDIT_PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/update/${loginInfo.userId}`;
+    // const EDIT_PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/update/${loginInfo.userId}`;
 
     const body = JSON.stringify(infoToUpdate);
 
-    const fetchedData = await fetch(EDIT_PROFILE_ENDPOINT_LOCAL, {
+    const fetchedData = await fetch(EDIT_PROFILE_ENDPOINT, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
       body });
@@ -180,11 +180,11 @@ function EditProfileInfo() {
         const cleanData = await fetchToUpdateUserPicture();
         if (cleanData.code === StatusCodes.UNAUTHORIZED) {
           navigate('/');
-          alerts('expiredSession');
+          return alerts('expiredSession');
         }
         if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
           navigate('/');
-          alerts();
+          return alerts();
         }
         if (cleanData.code === StatusCodes.OK) {
           infoToUpdate.userPicture = cleanData.imgSrc;
@@ -197,11 +197,11 @@ function EditProfileInfo() {
       const cleanData = await fetchToUpdateRegisteredInfo();
       if (cleanData.code === StatusCodes.UNAUTHORIZED) {
         navigate('/');
-        alerts('expiredSession');
+        return alerts('expiredSession');
       }
       if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
         navigate('/');
-        alerts();
+        return alerts();
       }
       setIsLoading(false);
       navigate('/profile');
