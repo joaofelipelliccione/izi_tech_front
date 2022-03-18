@@ -144,17 +144,9 @@ function EditProfileInfo() {
         Authorization: loginInfo.authToken,
       },
       body: formData });
-    const cleanData = await fetchedData.json();
 
-    if (cleanData.code === StatusCodes.UNAUTHORIZED) {
-      navigate('/');
-      swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
-    } else {
-      infoToUpdate.userPicture = cleanData.imgSrc;
-      loginInfoFromLS.userPicture = cleanData.imgSrc;
-      localStorage.setItem('loginInfo', JSON.stringify(loginInfoFromLS));
-      dispatch(setLoginInfoAC(loginInfoFromLS));
-    }
+    const cleanData = await fetchedData.json();
+    return cleanData;
   };
 
   const fetchToUpdateRegisteredInfo = async () => {
@@ -167,14 +159,12 @@ function EditProfileInfo() {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
       body });
-    const cleanData = await fetchedData.json();
 
-    if (cleanData.code === StatusCodes.UNAUTHORIZED) {
-      navigate('/');
-      swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
-    }
+    const cleanData = await fetchedData.json();
+    return cleanData;
   };
 
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   const updateRegisteredInfo = async () => {
     if (!cpfValidator(editUserCPF) && editUserCPF !== NOT_INFORMED) {
       swal('CPF', 'Por favor, digite o CPF você mesmo, '
@@ -190,10 +180,36 @@ function EditProfileInfo() {
         + 'para que as informações de endereço sejam preenchidas.', 'info');
     } else {
       setIsLoading(true);
+
       if (typeof editUserPicture === 'object') {
-        await fetchToUpdateUserPicture();
+        const cleanData = await fetchToUpdateUserPicture();
+        if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+          navigate('/');
+          return swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+        }
+        if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+          navigate('/');
+          return swal('Algo deu errado...', 'Por favor, '
+          + 'tente novamente em alguns minutos.', 'error');
+        }
+        if (cleanData.code === StatusCodes.OK) {
+          infoToUpdate.userPicture = cleanData.imgSrc;
+          loginInfoFromLS.userPicture = cleanData.imgSrc;
+          localStorage.setItem('loginInfo', JSON.stringify(loginInfoFromLS));
+          dispatch(setLoginInfoAC(loginInfoFromLS));
+        }
       }
-      await fetchToUpdateRegisteredInfo();
+
+      const cleanData = await fetchToUpdateRegisteredInfo();
+      if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+        navigate('/');
+        return swal('Sessão expirada :(', 'Por favor, realize um novo login.', 'info');
+      }
+      if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+        navigate('/');
+        return swal('Algo deu errado...', 'Por favor, '
+        + 'tente novamente em alguns minutos.', 'error');
+      }
       setIsLoading(false);
       navigate('/profile');
     }
