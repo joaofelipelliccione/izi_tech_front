@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 import userPicDefault from '../../images/user-picture.png';
 
 function ProfilePictureUploader({
@@ -7,8 +8,15 @@ function ProfilePictureUploader({
   editUserPicture, setEditUserPicture,
 }) {
   const onSelectImage = ({ target }) => {
-    setUserPicPreview(URL.createObjectURL(target.files[0]));
-    setEditUserPicture(target.files[0]);
+    const imgSize = target.files[0].size;
+    const ONE_POINT_FIVE_MB = 1500000;
+    if (imgSize <= ONE_POINT_FIVE_MB) {
+      setUserPicPreview(URL.createObjectURL(target.files[0]));
+      setEditUserPicture(target.files[0]);
+    } else {
+      return swal('Tamanho de imagem', 'Por favor, opte por uma imagem de, até, '
+      + '1,5 MB.', 'info');
+    }
   };
 
   return (
