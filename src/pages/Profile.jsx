@@ -28,11 +28,11 @@ function Profile() {
     }
 
     if (loginInfo !== null) {
-      // const PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
-      const PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
+      const PROFILE_ENDPOINT = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
+      // const PROFILE_ENDPOINT_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
 
       setIsLoading(true);
-      fetch(PROFILE_ENDPOINT_LOCAL, { headers: { Authorization: loginInfo.authToken } })
+      fetch(PROFILE_ENDPOINT, { headers: { Authorization: loginInfo.authToken } })
         .then((result) => result.json())
         .then((cleanData) => {
           if (cleanData.code === StatusCodes.UNAUTHORIZED) {

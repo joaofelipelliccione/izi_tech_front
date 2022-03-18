@@ -40,16 +40,16 @@ function Login() {
 
     if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
       setIsLoading(false);
-      alerts();
+      return alerts();
     }
     if (cleanData.code === StatusCodes.NOT_FOUND) {
       setIsLoading(false);
       alerts('userNotRegistered');
-      navigate('/register');
+      return navigate('/register');
     }
     if (cleanData.code === StatusCodes.FORBIDDEN) {
       setIsLoading(false);
-      alerts('incorrectPassword');
+      return alerts('incorrectPassword');
     }
     if (cleanData.authToken) {
       localStorage.setItem('loginInfo', JSON.stringify(cleanData));

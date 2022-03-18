@@ -39,11 +39,12 @@ function Register() {
     if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
       setIsLoading(false);
       alerts();
+      return navigate('/');
     }
     if (cleanData.code === StatusCodes.CONFLICT) {
       setIsLoading(false);
       swal(`O e-mail ${registerUserMail} já é cadastrado!`, '', 'info');
-      navigate('/login');
+      return navigate('/login');
     }
     if (cleanData.code === StatusCodes.CREATED) {
       setIsLoading(false);
