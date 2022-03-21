@@ -6,7 +6,7 @@ import { MdFavorite } from 'react-icons/md';
 function SubHeader() {
   const location = useLocation();
   const [currentPath, setCurrentPath] = React.useState(location.pathname);
-  const selectedPathStyle = { borderBottom: '4px solid #6272a4' };
+  const selectedPathStyle = { borderBottom: '4px solid var(--blueGray' };
   const noBorderStyle = { border: 'none' };
 
   return (

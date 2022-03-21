@@ -8,10 +8,13 @@
 :root {
   --bubbles: #e4f6f8;
   --paleGreen: #8bf3a5;
+  --malachiteGreen: #50fa7b;
+  --magicMint: #b9fac9;
   --jasper: #dd4343;
   --sunsetOrange: #ff5555;
   --pastelRed: #ff6b6b;
   --btnDisabled: rgba(170, 170, 170, 0.466);
+  --blueGray: #6272a4;
   --darkPuce: rgb(71, 50, 71);
   --oldLavender: rgb(119, 91, 119);
   --onyx: rgb(54, 56, 70);

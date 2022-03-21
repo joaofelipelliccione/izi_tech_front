@@ -7,45 +7,45 @@
 }
 
 #searchBarContainer input[ type = 'text' ] {
-  background-color: #b9fac9;
-  color: #282a36;
-  border-radius: 5px;
-  font-size: 1.1em;
-  width: 250px;
-  height: 40px;
-  padding: 7px;
+  background-color: var(--magicMint);
+  color: var(--gunMetal);
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+  width: 25rem;
+  height: 4rem;
+  padding: 0.7rem;
   transition: 0.3s width ease-in-out;
 }
 
 #searchBarContainer input[ type = 'text' ]:focus {
-  background-color: #8bf3a5;
-  color: #282a36;
+  background-color: var(--paleGreen);
+  color: var(--gunMetal);
   outline: none;
-  width: 300px;
+  width: 30rem;
 }
 
 #searchBarContainer button {
-  background-color: #b9fac9;
+  background-color: var(--magicMint);
   border: none;
-  border-radius: 20px;
+  border-radius: 2rem;
   align-self: center;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.45rem;
   margin: 0 2%;
-  padding: 7px;
+  padding: 0.7rem;
   transition: 0.2s ease-in-out;
 }
 
 #searchBarContainer svg {
-  color: rgb(71, 50, 71);
+  color: var(--darkPuce);
   width: 100%;
 }
 
 #searchBarContainer button:hover {
-  background-color: #8bf3a5;
+  background-color: var(--paleGreen);
 }
 
 #searchBarContainer button:disabled {
-  background-color: rgba(235, 235, 235, 0.582);
+  background-color: var(--btnDisabled);
   cursor: default;
 }

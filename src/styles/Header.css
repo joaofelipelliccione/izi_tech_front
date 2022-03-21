@@ -5,7 +5,7 @@
 
 /* TOP-HEADER */
 #iziTechTopHeader {
-  background-color: #282a36;
+  background-color: var(--gunMetal);
   display: flex;
   justify-content: center;
   width: 100%;
@@ -28,7 +28,7 @@
 #redirectToSearchArea {
   color: wheat;
   text-decoration: overline;
-  font-size: 1.1em;
+  font-size: 1.6rem;
 }
 
 #redirectToSearchArea:hover {
@@ -36,8 +36,8 @@
 }
 
 #logoAndSearchBarContainer img {
-  width: 70px;
-  height: 70px;
+  width: 7rem;
+  height: 7rem;
 }
 
 #headerNavbar {
@@ -47,8 +47,8 @@
 }
 
 #notDropdownList {
-  border-left: dashed 1px #b9fac9;
-  border-right: dashed 1px #b9fac9;
+  border-left: dashed 1px var(--magicMint);
+  border-right: dashed 1px var(--magicMint);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -64,15 +64,15 @@
 
 #notDropdownLink {
   color: ghostwhite;
-  font-size: 1.1em;
+  font-size: 1.6rem;
   font-weight: 600;
   text-decoration: none;
   transition-duration: 0.3s;
 }
 
 #notDropdownLink:hover {
-  color: #50fa7b;
-  font-size: 1.15em;
+  color: var(--malachiteGreen);
+  font-size: 1.65rem;
   cursor: pointer;
 }
 
@@ -86,38 +86,37 @@
 #loginLink {
   color: wheat;
   text-decoration: overline;
-  font-size: 1.05em;
+  font-size: 1.55rem;
   font-weight: 600;
   transition-duration: 0.3s;
 }
 
 #loginLink:hover {
-  font-size: 1.1em;
+  font-size: 1.55rem;
   text-decoration: underline;
 }
 
 #wannaSellBtn {
-  background-color: #b9fac9;
-  color: #282A36;
+  background-color: var(--magicMint);
+  color: var(--gunMetal);
   border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  height: 60px;
+  border-radius: 0.5rem;
+  font-size: 1.55rem;
+  height: 6rem;
   cursor: pointer;
-  padding: 8px;
+  padding: 1rem;
   transition-duration: 0.2s;
 }
 
 #wannaSellBtn:hover {
-  background-color: #8bf3a5;
+  background-color: var(--paleGreen);
   border-radius: 5px 15px;
-  font-size: 1em;
+  font-size: 1.55rem;
 }
 
 /* SUB-HEADER */
-
 #iziTechSubHeader {
-  background-image: linear-gradient(rgb(54, 56, 70), rgb(71, 50, 71));
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
   box-shadow: 0 10px 16px -4px black;
   display: flex;
   justify-content: space-evenly;
@@ -125,12 +124,12 @@
 }
 
 #iziTechSubHeader a {
-  background-color: #b9fac9;
-  color: #282A36;
+  background-color: var(--magicMint);
+  color: var(--gunMetal);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.1em;
+  font-size: 1.6rem;
   font-weight: 600;
   text-decoration: none;
   width: 33.1%;
@@ -139,6 +138,6 @@
 }
 
 #iziTechSubHeader a:hover {
-  background-color: #8bf3a5;
-  font-size: 1.15em;
+  background-color: var(--paleGreen);
+  font-size: 1.6rem;
 }
