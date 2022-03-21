@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import setProductsCategories from '../../redux/actions/productsCategoriesAC';
 import SearchBar from './SearchBar';
 import DropdownCategories from './DropdownCategories';
 import DropdownAvatar from './DropdownAvatar';
@@ -12,21 +13,29 @@ import '../../styles/Header.css';
 function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
   homeSearchedItem, setHomeSearchedItem,
   onClickHomeSearchBtn, setHomeOrderBy }) {
-  const location = useLocation();
   const user = useSelector((state) => state.user);
+  const productsCategories = useSelector((state) => state.productsCategories);
 
   const [categoriesArr, setCategoriesArr] = React.useState([]);
   const topCategoriesArr = categoriesArr.map(({ topCategoryName }) => topCategoryName);
 
-  React.useEffect(() => {
-    // const PRODUCTS_CATEGORIES_ENDPOINT = 'https://izi-tech-back.herokuapp.com/products_categories';
-    const PRODUCTS_CATEGORIES_ENDPOINT_LOCAL = 'http://localhost:4000/products_categories';
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-    fetch(PRODUCTS_CATEGORIES_ENDPOINT_LOCAL)
-      .then((res) => res.json())
-      .then((cleanData) => {
-        setCategoriesArr(cleanData);
-      });
+  React.useEffect(() => {
+    const PRODUCTS_CATEGORIES_ENDPOINT = 'https://izi-tech-back.herokuapp.com/products_categories';
+    // const PRODUCTS_CATEGORIES_ENDPOINT_LOCAL = 'http://localhost:4000/products_categories';
+
+    if (productsCategories.productsCategoriesArr.length === 0) {
+      fetch(PRODUCTS_CATEGORIES_ENDPOINT)
+        .then((res) => res.json())
+        .then((cleanData) => {
+          setCategoriesArr(cleanData);
+          dispatch(setProductsCategories(cleanData));
+        });
+    } else {
+      setCategoriesArr(productsCategories.productsCategoriesArr);
+    }
   }, []);
 
   return (
