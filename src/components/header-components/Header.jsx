@@ -6,7 +6,6 @@ import SearchBar from './SearchBar';
 import DropdownCategories from './DropdownCategories';
 import DropdownAvatar from './DropdownAvatar';
 import SubHeader from './SubHeader';
-import categoriesStructure from '../../data/categories-structure';
 import iziTechLogo from '../../images/izi-tech-logo.png';
 import '../../styles/Header.css';
 
@@ -15,8 +14,20 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
   onClickHomeSearchBtn, setHomeOrderBy }) {
   const location = useLocation();
   const user = useSelector((state) => state.user);
-  const categoriesArray = categoriesStructure
-    .map((category) => (category.topCategoryName)); // ['smartphones e telefonia', 'informática', 'games', 'eletrônicos, áudio e vídeo', 'veículos elétricos leves'].
+
+  const [categoriesArr, setCategoriesArr] = React.useState([]);
+  const topCategoriesArr = categoriesArr.map(({ topCategoryName }) => topCategoryName);
+
+  React.useEffect(() => {
+    // const PRODUCTS_CATEGORIES_ENDPOINT = 'https://izi-tech-back.herokuapp.com/products_categories';
+    const PRODUCTS_CATEGORIES_ENDPOINT_LOCAL = 'http://localhost:4000/products_categories';
+
+    fetch(PRODUCTS_CATEGORIES_ENDPOINT_LOCAL)
+      .then((res) => res.json())
+      .then((cleanData) => {
+        setCategoriesArr(cleanData);
+      });
+  }, []);
 
   return (
     <header id="iziTechHeader">
@@ -43,7 +54,7 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
           </div>
           <nav id="headerNavbar">
             <ul id="notDropdownList">
-              {categoriesArray.filter((_cat, index) => index <= 2)
+              {topCategoriesArr.filter((_cat, index) => index <= 2)
                 .map((category) => (
                   <li key={ category }>
                     <Link to="/" id="notDropdownLink">{category}</Link>

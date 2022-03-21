@@ -2,13 +2,13 @@ import React from 'react';
 import Header from '../components/header-components/Header';
 // import Footer from '../components/Footer';
 
-function SelectedAds() {
+function About() {
   return (
-    <div id="selectedAdsPage">
+    <div id="aboutPage">
       <Header />
       {/* <Footer /> */}
     </div>
   );
 }
 
-export default SelectedAds;
+export default About;

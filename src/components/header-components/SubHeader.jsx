@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { ImCart } from 'react-icons/im';
+import { MdFavorite } from 'react-icons/md';
 
 
 function SubHeader() {
@@ -12,22 +12,22 @@ function SubHeader() {
   return (
     <section id="iziTechSubHeader">
       <Link
+        to="/about"
+        style={ currentPath === '/about' ? selectedPathStyle : noBorderStyle }
+      >
+        como funciona?
+      </Link>
+      <Link
         to="/"
         style={ currentPath === '/' ? selectedPathStyle : noBorderStyle }
       >
-        todos os anúncios
+        anúncios
       </Link>
       <Link
-        to="/selectedAds"
-        style={ currentPath === '/selectedAds' ? selectedPathStyle : noBorderStyle }
+        to="/favoriteAds"
+        style={ currentPath === '/favoriteAds' ? selectedPathStyle : noBorderStyle }
       >
-        anúncios selecionados
-      </Link>
-      <Link
-        to="/cart"
-        style={ currentPath === '/cart' ? selectedPathStyle : noBorderStyle }
-      >
-        <ImCart />
+        <MdFavorite/>
       </Link>
     </section>
   );
