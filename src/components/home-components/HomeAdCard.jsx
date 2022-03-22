@@ -1,56 +1,56 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
+// import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { BiShareAlt } from 'react-icons/bi';
 import HomeAdCardCarousel from './HomeAdCardCarousel';
-import { favoriteNewProductAC, removeFavoriteProductAC }
-from '../../redux/actions/favoriteProductsAC';
+// import { favoriteNewProductAC, removeFavoriteProductAC }
+// from '../../redux/actions/favoriteProductsAC';
 
 function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
-  const currentUserMail = useSelector((state) => state.user.userMail);
-  const favoriteProductsMacroArr = useSelector((state) => state.favoriteProducts
-    .favoriteProducts);
+  const loginInfo = useSelector((state) => state.user.loginInfo);
+  // const favoriteProductsMacroArr = useSelector((state) => state.favoriteProducts
+  //   .favoriteProducts);
 
-  const [userCurrentFavoriteProductsArr, setUserCurrentFavoriteProductsArr] = React
-    .useState([]);
+  // const [userCurrentFavoriteProductsArr, setUserCurrentFavoriteProductsArr] = React
+  //   .useState([]);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (currentUserMail !== '') {
-      setUserCurrentFavoriteProductsArr(favoriteProductsMacroArr
-        .find(({ userMail }) => userMail === currentUserMail).userFavoriteProducts);
-    }
-  }, [favoriteProductsMacroArr]);
+  // React.useEffect(() => {
+  //   if (currentUserMail !== '') {
+  //     setUserCurrentFavoriteProductsArr(favoriteProductsMacroArr
+  //       .find(({ userMail }) => userMail === currentUserMail).userFavoriteProducts);
+  //   }
+  // }, [favoriteProductsMacroArr]);
 
-  const onClickFavoriteBtn = (productId) => {
-    const isProductAlreadyFavorited = userCurrentFavoriteProductsArr
-      .some((id) => id === productId);
+  // const onClickFavoriteBtn = (productId) => {
+  //   const isProductAlreadyFavorited = userCurrentFavoriteProductsArr
+  //     .some((id) => id === productId);
 
-    const updatedObj1 = {
-      userMail: currentUserMail,
-      userFavoriteProducts: [...userCurrentFavoriteProductsArr, productId],
-    };
+  //   const updatedObj1 = {
+  //     userMail: currentUserMail,
+  //     userFavoriteProducts: [...userCurrentFavoriteProductsArr, productId],
+  //   };
 
-    const updatedObj2 = {
-      userMail: currentUserMail,
-      userFavoriteProducts: [...userCurrentFavoriteProductsArr
-        .filter((id) => id !== productId)],
-    };
+  //   const updatedObj2 = {
+  //     userMail: currentUserMail,
+  //     userFavoriteProducts: [...userCurrentFavoriteProductsArr
+  //       .filter((id) => id !== productId)],
+  //   };
 
-    if (!isProductAlreadyFavorited) {
-      dispatch(favoriteNewProductAC(updatedObj1, currentUserMail));
-    }
-    if (isProductAlreadyFavorited) {
-      dispatch(removeFavoriteProductAC(updatedObj2, currentUserMail));
-    }
-  };
+  //   if (!isProductAlreadyFavorited) {
+  //     dispatch(favoriteNewProductAC(updatedObj1, currentUserMail));
+  //   }
+  //   if (isProductAlreadyFavorited) {
+  //     dispatch(removeFavoriteProductAC(updatedObj2, currentUserMail));
+  //   }
+  // };
 
   const onClickShareBtn = (productId) => {
     const TWO_SECONDS = 2000;
-    navigator.clipboard.writeText(`https://joaofelipelliccione.github.io/izi_tech/#/adDetails/${productId}`);
+    navigator.clipboard.writeText(`https://izi-tech-front.herokuapp.com/adDetails/${productId}`);
     setIsShareAdMessageHidden(false);
     setTimeout(() => setIsShareAdMessageHidden(true), TWO_SECONDS);
   };
@@ -60,7 +60,8 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
       {adsToRender.map((adObj) => (
         <div key={ adObj.productId } id="eachHomeDisplayedAdCard">
           <HomeAdCardCarousel
-            productPicsArr={ adObj.productPictures }
+            productPicsArr={ adObj.productPictures
+              .map(({ productPicturePath }) => productPicturePath) }
           />
           <div id="eachHomeDisplayedAdCardBlock1">
             <Link
@@ -69,7 +70,7 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
             >
               <h3>{adObj.productTitle}</h3>
               <div id="eachHomeDisplayedAdCardBlock1-1">
-                <p>{adObj.productCondition}</p>
+                <p>{adObj.productCondition.productConditionName}</p>
                 {adObj.productAcceptChange ? (
                   <p>considera troca!</p>
                 ) : (
@@ -78,18 +79,18 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
               </div>
               <p>
                 {
-                  `${adObj.productLocation.productCity}, 
-              ${adObj.productLocation.productNeighborhood} 
-              - ddd ${adObj.productLocation.productDDD}`
+                  `${adObj.infoFromCep.city},
+              ${adObj.infoFromCep.neighborhood}
+              - ddd ${adObj.infoFromCep.ddd}`
                 }
               </p>
-              <p>{adObj.publicationDate}</p>
+              <p>{adObj.publicationDate.split('-').reverse().join('/')}</p>
             </Link>
           </div>
           <div id="eachHomeDisplayedAdCardBlock2">
             <p>{`R$ ${adObj.productPrice}`}</p>
             <div id="eachHomeDisplayedAdCardBlock2-1">
-              {currentUserMail !== ''
+              {loginInfo.userId
                 && (
                   <button
                     id="homeDisplayedAdFavBtn"
@@ -97,10 +98,11 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
                     onClick={ () => onClickFavoriteBtn(adObj.productId) }
                   >
                     {
-                      userCurrentFavoriteProductsArr
-                        .some((id) => id === adObj.productId)
-                        ? <MdOutlineFavorite />
-                        : <MdOutlineFavoriteBorder />
+                      console.log('Fazer isso.')
+                      // userCurrentFavoriteProductsArr
+                      //   .some((id) => id === adObj.productId)
+                      //   ? <MdOutlineFavorite />
+                      //   : <MdOutlineFavoriteBorder />
                     }
                   </button>
                 )}

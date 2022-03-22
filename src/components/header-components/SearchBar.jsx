@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BsSearch } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import '../../styles/SearchBar.css';
 
 function SearchBar({ setAdsToRender, setIsHomeFilterBoxHidden,
   homeSearchedItem, setHomeSearchedItem,
   onClickHomeSearchBtn, setHomeOrderBy }) {
-  const publishedProductsMacroArr = useSelector((state) => state.publishedProducts
-    .publishedProducts);
-  const publishedProductsArr = publishedProductsMacroArr
-    .map(({ userPublishedProducts }) => userPublishedProducts)
-    .reduce((acc, currMiniArr) => acc.concat(currMiniArr))
-    .sort((prodA, prodB) => prodB.productId - prodA.productId);
+  // const publishedProductsMacroArr = useSelector((state) => state.publishedProducts
+  //   .publishedProducts);
+  // const publishedProductsArr = publishedProductsMacroArr
+  //   .map(({ userPublishedProducts }) => userPublishedProducts)
+  //   .reduce((acc, currMiniArr) => acc.concat(currMiniArr))
+  //   .sort((prodA, prodB) => prodB.productId - prodA.productId);
 
   const homeSearchWithEnter = (e) => {
     e.preventDefault();

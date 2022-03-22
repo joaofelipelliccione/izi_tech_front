@@ -1,19 +1,22 @@
-import { CREATE_USER_SECTION,
+import { SET_PUBLISHED_PRODUCTS,
+  CREATE_USER_SECTION,
   REGISTER_NEW_PRODUCT,
   UPDATE_PUBLISHED_PRODUCT,
   REMOVE_PUBLISHED_PRODUCT,
 } from '../actions/publishedProductsAC';
 
-import dummyPublishedProducts from
-'../../data/dummyData/publishedProducts/dummyPublishedProducts';
-
 const INITIAL_STATE = {
   productIdCounter: 9,
-  publishedProducts: dummyPublishedProducts,
+  publishedProductsArr: [],
 };
 
 function publishedProducts(state = INITIAL_STATE, action) {
   switch (action.type) {
+  case SET_PUBLISHED_PRODUCTS:
+    return {
+      publishedProductsArr: action.publishedProductsArr,
+    };
+
   case CREATE_USER_SECTION:
     return {
       productIdCounter: state.productIdCounter,

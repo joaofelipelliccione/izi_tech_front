@@ -3,23 +3,20 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiFilterLine } from 'react-icons/ri';
 import { CgCloseO } from 'react-icons/cg';
+import { StatusCodes } from 'http-status-codes';
 import Header from '../components/header-components/Header';
 import HomeFilters from '../components/home-components/HomeFilters';
 import HomeOrderBy from '../components/home-components/HomeOrderBy';
 import HomeAdsDisplay from '../components/home-components/HomeAdsDisplay';
 import Footer from '../components/Footer';
 import { clearLoginInfoAC, clearAllUserInfoAC, setAllUserInfoAC } from '../redux/actions/userAC';
+import setPublishedProductsAC from '../redux/actions/publishedProductsAC';
 import authTokenVerifier from '../shared-functions/authTokenVerifier';
-import getLCArrayWithoutAccent from '../shared-functions/getLCArrayWithoutAccent';
+// import getLCArrayWithoutAccent from '../shared-functions/getLCArrayWithoutAccent';
 import '../styles/Home.css';
 
 function Home() {
-  const publishedProductsMacroArr = useSelector((state) => state.publishedProducts
-    .publishedProducts);
-  const publishedProductsArr = publishedProductsMacroArr
-    .map(({ userPublishedProducts }) => userPublishedProducts)
-    .reduce((acc, currMiniArr) => acc.concat(currMiniArr))
-    .sort((prodA, prodB) => prodB.productId - prodA.productId);
+  const publishedProducts = useSelector((state) => state.publishedProducts);
 
   const [renderedAdsBeforeFilterTogleClick, setRenderedAdsBeforeFilterTogleClick] = React.useState([]);
   const [adsToRender, setAdsToRender] = React.useState([]);
@@ -52,42 +49,60 @@ function Home() {
   }, []);
 
   React.useEffect(() => {
-    setAdsToRender(publishedProductsArr);
+    const PUBLISHED_PRODUCTS_ENDPOINT = 'https://izi-tech-back.herokuapp.com/published_products';
+    // const PUBLISHED_PRODUCTS_ENDPOINT_LOCAL = 'http://localhost:4000/published_products';
+
+    if (publishedProducts.publishedProductsArr.length === 0) {
+      fetch(PUBLISHED_PRODUCTS_ENDPOINT)
+        .then((res) => res.json())
+        .then((cleanData) => {
+          if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+            navigate('/'); // CRIAR UMA PÁGINA P/ QUANDO NÃO SEJA POSSÍVEL REALIZAR O FETCH
+          } else {
+            setAdsToRender(cleanData);
+            dispatch(setPublishedProductsAC(cleanData));
+          }
+        });
+    } else {
+      setAdsToRender(publishedProducts.publishedProductsArr);
+    }
   }, []);
 
-  React.useEffect(() => {
-    if (homeSearchedItem === '') {
-      setAdsToRender(publishedProductsArr);
-    }
-  }, [homeSearchedItem]);
+  // React.useEffect(() => {
+  //   if (homeSearchedItem === '') {
+  //     setAdsToRender(publishedProductsArr);
+  //   }
+  // }, [homeSearchedItem]);
 
   const onClickHomeSearchBtn = () => {
-    const searchedItemInFormOfArr = getLCArrayWithoutAccent(homeSearchedItem); // Ex: 'Controle Xbox Series' --> ['controle', 'xbox', 'series'];
-    let filteredProductsArray = [];
+    console.log('Essa função vai mudar');
 
-    if (!isHomeFilterBoxHidden) {
-      setIsHomeFilterBoxHidden(true);
-    }
+    // const searchedItemInFormOfArr = getLCArrayWithoutAccent(homeSearchedItem); // Ex: 'Controle Xbox Series' --> ['controle', 'xbox', 'series'];
+    // let filteredProductsArray = [];
 
-    /* Explicação da lógica abaixo:
-      Em cada 'productTitle', 'productLine' ou 'productType' dentro de 'publishedProductsArr', verifica-se se há a presença de cada palavra contida em 'searchedItemInFormOfArr'. Caso haja a presença, a variável 'counter' aumenta em uma unidade.
-      Ao final de todas as palavras contidas no array 'searchedItemInFormOfArr', caso 'productTitle' + 'productLine' + 'productType' apresente uma ou mais palavras contidas em 'searchedItemInFormOfArr', o 'productObj' da vez passa a fazer parte do 'filteredProductsArray'. Esse último, será renderizado na tela.
-    */
-    publishedProductsArr.forEach((productObj) => {
-      let counter = 0;
-      searchedItemInFormOfArr.forEach((word) => {
-        if (getLCArrayWithoutAccent(productObj.productTitle).includes(word)
-        || getLCArrayWithoutAccent(productObj.productLine).includes(word)
-        || getLCArrayWithoutAccent(productObj.productType).includes(word)) {
-          counter += 1;
-        }
-      });
-      if (counter >= 1) {
-        filteredProductsArray = [...filteredProductsArray, productObj];
-      }
-    });
+    // if (!isHomeFilterBoxHidden) {
+    //   setIsHomeFilterBoxHidden(true);
+    // }
 
-    setAdsToRender(filteredProductsArray);
+    // /* Explicação da lógica abaixo:
+    //   Em cada 'productTitle', 'productLine' ou 'productType' dentro de 'publishedProductsArr', verifica-se se há a presença de cada palavra contida em 'searchedItemInFormOfArr'. Caso haja a presença, a variável 'counter' aumenta em uma unidade.
+    //   Ao final de todas as palavras contidas no array 'searchedItemInFormOfArr', caso 'productTitle' + 'productLine' + 'productType' apresente uma ou mais palavras contidas em 'searchedItemInFormOfArr', o 'productObj' da vez passa a fazer parte do 'filteredProductsArray'. Esse último, será renderizado na tela.
+    // */
+    // publishedProductsArr.forEach((productObj) => {
+    //   let counter = 0;
+    //   searchedItemInFormOfArr.forEach((word) => {
+    //     if (getLCArrayWithoutAccent(productObj.productTitle).includes(word)
+    //   || getLCArrayWithoutAccent(productObj.productLine).includes(word)
+    //   || getLCArrayWithoutAccent(productObj.productType).includes(word)) {
+    //       counter += 1;
+    //     }
+    //   });
+    //   if (counter >= 1) {
+    //     filteredProductsArray = [...filteredProductsArray, productObj];
+    //   }
+    // });
+
+    // setAdsToRender(filteredProductsArray);
   };
 
   const onClickFilterTogle = () => {

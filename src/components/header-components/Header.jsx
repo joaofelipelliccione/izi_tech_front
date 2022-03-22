@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { StatusCodes } from 'http-status-codes';
 import setProductsCategories from '../../redux/actions/productsCategoriesAC';
 import SearchBar from './SearchBar';
 import DropdownCategories from './DropdownCategories';
@@ -30,8 +31,12 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
       fetch(PRODUCTS_CATEGORIES_ENDPOINT)
         .then((res) => res.json())
         .then((cleanData) => {
-          setCategoriesArr(cleanData);
-          dispatch(setProductsCategories(cleanData));
+          if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+            navigate('/'); // CRIAR UMA PÁGINA P/ QUANDO NÃO SEJA POSSÍVEL REALIZAR O FETCH
+          } else {
+            setCategoriesArr(cleanData);
+            dispatch(setProductsCategories(cleanData));
+          }
         });
     } else {
       setCategoriesArr(productsCategories.productsCategoriesArr);
