@@ -15,6 +15,7 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
   const allUserInfo = useSelector((state) => state.user.allUserInfo);
   const favoriteProductsArr = allUserInfo.favoriteProducts;
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [userFavoriteProductsArr, setUserFavoriteProductsArr] = React
     .useState([]);
 
@@ -44,14 +45,45 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
     return cleanData;
   };
 
+  const fetchToInsertFavoriteProduct = async (productId) => {
+    const INSERT_FAVORITE_PROD_ENDPOINT = 'https://izi-tech-back.herokuapp.com/favorite_products/insert';
+    // const INSERT_FAVORITE_PROD_ENDPOINT_LOCAL = 'http://localhost:4000/favorite_products/insert';
+
+    const body = JSON.stringify({
+      userId: loginInfo.userId,
+      productId,
+    });
+
+    const fetchedData = await fetch(INSERT_FAVORITE_PROD_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
+      body });
+    const cleanData = await fetchedData.json();
+    return cleanData;
+  };
+
   const onClickFavoriteBtn = async (productId) => {
     const isProductAlreadyFavorited = userFavoriteProductsArr
       .some((prodId) => prodId === productId);
 
     if (!isProductAlreadyFavorited) {
-      dispatch(addFavoriteProductAC({ productId }));
+      setIsLoading(true);
+      const cleanData = await fetchToInsertFavoriteProduct(productId);
+
+      if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+        return navigate('/'); // CRIAR UMA PÁGINA P/ QUANDO NÃO SEJA POSSÍVEL REALIZAR O FETCH
+      }
+      if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+        navigate('/login');
+        return alerts('expiredSession');
+      }
+      if (cleanData.code === StatusCodes.CREATED) {
+        dispatch(addFavoriteProductAC({ productId }));
+        return setIsLoading(false);
+      }
     }
     if (isProductAlreadyFavorited) {
+      setIsLoading(true);
       const cleanData = await fetchToRemoveFavoriteProduct(productId);
 
       if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
@@ -62,7 +94,8 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
         return alerts('expiredSession');
       }
       if (cleanData.code === StatusCodes.OK) {
-        return dispatch(removeFavoriteProductAC(productId));
+        dispatch(removeFavoriteProductAC(productId));
+        return setIsLoading(false);
       }
     }
   };
@@ -115,6 +148,7 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
                     id="homeDisplayedAdFavBtn"
                     type="button"
                     onClick={ () => onClickFavoriteBtn(adObj.productId) }
+                    disabled={ isLoading === true }
                   >
                     {
                       userFavoriteProductsArr
