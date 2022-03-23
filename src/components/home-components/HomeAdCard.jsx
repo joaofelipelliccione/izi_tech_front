@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { BiShareAlt } from 'react-icons/bi';
 import HomeAdCardCarousel from './HomeAdCardCarousel';
-// import { favoriteNewProductAC, removeFavoriteProductAC }
-// from '../../redux/actions/favoriteProductsAC';
+import { addFavoriteProductAC, removeFavoriteProductAC }
+from '../../redux/actions/userAC';
 
 function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
   const loginInfo = useSelector((state) => state.user.loginInfo);
@@ -16,36 +16,25 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
   const [userFavoriteProductsArr, setUserFavoriteProductsArr] = React
     .useState([]);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (favoriteProductsArr !== undefined && favoriteProductsArr.length > 0) {
+    if (favoriteProductsArr !== undefined) {
       setUserFavoriteProductsArr(favoriteProductsArr.map(({ productId }) => productId));
     }
   }, [favoriteProductsArr]);
 
-  // const onClickFavoriteBtn = (productId) => {
-  //   const isProductAlreadyFavorited = userFavoriteProductsArr
-  //     .some((id) => id === productId);
+  const onClickFavoriteBtn = (productId) => {
+    const isProductAlreadyFavorited = userFavoriteProductsArr
+      .some((prodId) => prodId === productId);
 
-  //   const updatedObj1 = {
-  //     userMail: currentUserMail,
-  //     userFavoriteProducts: [...userFavoriteProductsArr, productId],
-  //   };
-
-  //   const updatedObj2 = {
-  //     userMail: currentUserMail,
-  //     userFavoriteProducts: [...userFavoriteProductsArr
-  //       .filter((id) => id !== productId)],
-  //   };
-
-  //   if (!isProductAlreadyFavorited) {
-  //     dispatch(favoriteNewProductAC(updatedObj1, currentUserMail));
-  //   }
-  //   if (isProductAlreadyFavorited) {
-  //     dispatch(removeFavoriteProductAC(updatedObj2, currentUserMail));
-  //   }
-  // };
+    if (!isProductAlreadyFavorited) {
+      dispatch(addFavoriteProductAC({ productId }));
+    }
+    if (isProductAlreadyFavorited) {
+      dispatch(removeFavoriteProductAC(productId));
+    }
+  };
 
   const onClickShareBtn = (productId) => {
     const TWO_SECONDS = 2000;
