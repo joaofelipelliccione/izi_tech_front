@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { BiShareAlt } from 'react-icons/bi';
+import { StatusCodes } from 'http-status-codes';
+import alerts from '../../shared-functions/alerts';
 import HomeAdCardCarousel from './HomeAdCardCarousel';
 import { addFavoriteProductAC, removeFavoriteProductAC }
 from '../../redux/actions/userAC';
@@ -16,6 +18,7 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
   const [userFavoriteProductsArr, setUserFavoriteProductsArr] = React
     .useState([]);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -24,7 +27,24 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
     }
   }, [favoriteProductsArr]);
 
-  const onClickFavoriteBtn = (productId) => {
+  const fetchToRemoveFavoriteProduct = async (productId) => {
+    const REMOVE_FAVORITE_PROD_ENDPOINT = 'https://izi-tech-back.herokuapp.com/favorite_products/remove';
+    // const REMOVE_FAVORITE_PROD_ENDPOINT_LOCAL = 'http://localhost:4000/favorite_products/remove';
+
+    const body = JSON.stringify({
+      userId: loginInfo.userId,
+      productId,
+    });
+
+    const fetchedData = await fetch(REMOVE_FAVORITE_PROD_ENDPOINT, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
+      body });
+    const cleanData = await fetchedData.json();
+    return cleanData;
+  };
+
+  const onClickFavoriteBtn = async (productId) => {
     const isProductAlreadyFavorited = userFavoriteProductsArr
       .some((prodId) => prodId === productId);
 
@@ -32,7 +52,18 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
       dispatch(addFavoriteProductAC({ productId }));
     }
     if (isProductAlreadyFavorited) {
-      dispatch(removeFavoriteProductAC(productId));
+      const cleanData = await fetchToRemoveFavoriteProduct(productId);
+
+      if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+        return navigate('/'); // CRIAR UMA PÁGINA P/ QUANDO NÃO SEJA POSSÍVEL REALIZAR O FETCH
+      }
+      if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+        navigate('/login');
+        return alerts('expiredSession');
+      }
+      if (cleanData.code === StatusCodes.OK) {
+        return dispatch(removeFavoriteProductAC(productId));
+      }
     }
   };
 

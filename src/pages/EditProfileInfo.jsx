@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BsSave2 } from 'react-icons/bs';
 import { AiOutlineRollback } from 'react-icons/ai';
+import { StatusCodes } from 'http-status-codes';
 import alerts from '../shared-functions/alerts';
 import Header from '../components/header-components/Header';
 import Footer from '../components/Footer';
@@ -19,8 +20,6 @@ import EditProfileBlock1 from
 import EditProfileBlock2 from
 '../components/edit-profile-form-components/EditProfileBlock2';
 import '../styles/EditProfileInfo.css';
-
-const { StatusCodes } = require('http-status-codes');
 
 function EditProfileInfo() {
   const userInfo = useSelector((state) => state.user.allUserInfo);
