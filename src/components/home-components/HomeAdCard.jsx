@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
+import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { BiShareAlt } from 'react-icons/bi';
 import HomeAdCardCarousel from './HomeAdCardCarousel';
 // import { favoriteNewProductAC, removeFavoriteProductAC }
@@ -10,33 +10,32 @@ import HomeAdCardCarousel from './HomeAdCardCarousel';
 
 function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
   const loginInfo = useSelector((state) => state.user.loginInfo);
-  // const favoriteProductsMacroArr = useSelector((state) => state.favoriteProducts
-  //   .favoriteProducts);
+  const allUserInfo = useSelector((state) => state.user.allUserInfo);
+  const favoriteProductsArr = allUserInfo.favoriteProducts;
 
-  // const [userCurrentFavoriteProductsArr, setUserCurrentFavoriteProductsArr] = React
-  //   .useState([]);
+  const [userFavoriteProductsArr, setUserFavoriteProductsArr] = React
+    .useState([]);
 
   // const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  //   if (currentUserMail !== '') {
-  //     setUserCurrentFavoriteProductsArr(favoriteProductsMacroArr
-  //       .find(({ userMail }) => userMail === currentUserMail).userFavoriteProducts);
-  //   }
-  // }, [favoriteProductsMacroArr]);
+  React.useEffect(() => {
+    if (favoriteProductsArr !== undefined && favoriteProductsArr.length > 0) {
+      setUserFavoriteProductsArr(favoriteProductsArr.map(({ productId }) => productId));
+    }
+  }, [favoriteProductsArr]);
 
   // const onClickFavoriteBtn = (productId) => {
-  //   const isProductAlreadyFavorited = userCurrentFavoriteProductsArr
+  //   const isProductAlreadyFavorited = userFavoriteProductsArr
   //     .some((id) => id === productId);
 
   //   const updatedObj1 = {
   //     userMail: currentUserMail,
-  //     userFavoriteProducts: [...userCurrentFavoriteProductsArr, productId],
+  //     userFavoriteProducts: [...userFavoriteProductsArr, productId],
   //   };
 
   //   const updatedObj2 = {
   //     userMail: currentUserMail,
-  //     userFavoriteProducts: [...userCurrentFavoriteProductsArr
+  //     userFavoriteProducts: [...userFavoriteProductsArr
   //       .filter((id) => id !== productId)],
   //   };
 
@@ -98,11 +97,10 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
                     onClick={ () => onClickFavoriteBtn(adObj.productId) }
                   >
                     {
-                      console.log('Fazer isso.')
-                      // userCurrentFavoriteProductsArr
-                      //   .some((id) => id === adObj.productId)
-                      //   ? <MdOutlineFavorite />
-                      //   : <MdOutlineFavoriteBorder />
+                      userFavoriteProductsArr
+                        .some((productId) => productId === adObj.productId)
+                        ? <MdOutlineFavorite />
+                        : <MdOutlineFavoriteBorder />
                     }
                   </button>
                 )}
