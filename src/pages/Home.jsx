@@ -18,6 +18,7 @@ import '../styles/Home.css';
 function Home() {
   const publishedProducts = useSelector((state) => state.publishedProducts);
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [renderedAdsBeforeFilterTogleClick, setRenderedAdsBeforeFilterTogleClick] = React.useState([]);
   const [adsToRender, setAdsToRender] = React.useState([]);
   const [homeSearchedItem, setHomeSearchedItem] = React.useState('');
@@ -53,6 +54,7 @@ function Home() {
     // const PUBLISHED_PRODUCTS_ENDPOINT_LOCAL = 'http://localhost:4000/published_products';
 
     if (publishedProducts.publishedProductsArr.length === 0) {
+      setIsLoading(true);
       fetch(PUBLISHED_PRODUCTS_ENDPOINT)
         .then((res) => res.json())
         .then((cleanData) => {
@@ -61,6 +63,7 @@ function Home() {
           } else {
             setAdsToRender(cleanData);
             dispatch(setPublishedProductsAC(cleanData));
+            setIsLoading(false);
           }
         });
     } else {
@@ -183,6 +186,7 @@ function Home() {
           link copiado!
         </span>
         <HomeAdsDisplay
+          isLoading={ isLoading }
           adsToRender={ adsToRender }
           setIsShareAdMessageHidden={ setIsShareAdMessageHidden }
         />

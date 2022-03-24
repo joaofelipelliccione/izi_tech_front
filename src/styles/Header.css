@@ -76,7 +76,7 @@
   cursor: pointer;
 }
 
-#fetchHeaderCategoriesLoader {
+#headerCategoriesLoader {
   border: 0.5rem solid var(--romanSilver);
   border-top: 0.5rem solid var(--magicMint);
   border-radius: 50%;

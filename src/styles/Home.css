@@ -403,3 +403,24 @@
   width: 55%;
   margin-top: 0;
 }
+
+#homeNoAdsFoundLoader {
+  border: 0.75rem solid var(--onyx);
+  border-top: 0.75rem solid var(--magicMint);
+  border-radius: 50%;
+  display: flex;
+  align-self: center;
+  width: 15rem;
+  height: 15rem;
+  margin: 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 

@@ -82,7 +82,7 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
               </ul>
             ) : (
               <ul id="notDropdownList">
-                <div id="fetchHeaderCategoriesLoader" />
+                <div id="headerCategoriesLoader" />
               </ul>
             )}
           </nav>

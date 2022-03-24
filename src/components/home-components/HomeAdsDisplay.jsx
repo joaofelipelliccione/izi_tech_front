@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import HomeAdCard from './HomeAdCard';
 import noAdsFoundIllustration from '../../illustrations/notFound.svg';
 
-function HomeAdsDisplay({ adsToRender, setIsShareAdMessageHidden }) {
+function HomeAdsDisplay({ isLoading, adsToRender, setIsShareAdMessageHidden }) {
   return (
     <section id="homeProductsDisplayScrollWrapper">
       {adsToRender.length > 0 ? (
@@ -13,11 +13,13 @@ function HomeAdsDisplay({ adsToRender, setIsShareAdMessageHidden }) {
         />)
         : (
           <div id="homeNoAdsFound">
-            <h3>nenhum anúncio encontrado...</h3>
-            <img
-              src={ noAdsFoundIllustration }
-              alt="No Ads Found"
-            />
+            {!isLoading && <h3>nenhum anúncio encontrado...</h3>}
+            {!isLoading ? (
+              <img
+                src={ noAdsFoundIllustration }
+                alt="No Ads Found"
+              />
+            ) : (<div id="homeNoAdsFoundLoader" />)}
           </div>
         )}
     </section>
@@ -25,6 +27,7 @@ function HomeAdsDisplay({ adsToRender, setIsShareAdMessageHidden }) {
 }
 
 HomeAdsDisplay.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   adsToRender: PropTypes.arrayOf(PropTypes.object).isRequired,
   setIsShareAdMessageHidden: PropTypes.func.isRequired,
 };
