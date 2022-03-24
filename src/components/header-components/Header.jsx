@@ -17,6 +17,7 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
   const user = useSelector((state) => state.user);
   const productsCategories = useSelector((state) => state.productsCategories);
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [categoriesArr, setCategoriesArr] = React.useState([]);
   const topCategoriesArr = categoriesArr.map(({ topCategoryName }) => topCategoryName);
 
@@ -28,6 +29,7 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
     // const PRODUCTS_CATEGORIES_ENDPOINT_LOCAL = 'http://localhost:4000/products_categories';
 
     if (productsCategories.productsCategoriesArr.length === 0) {
+      setIsLoading(true);
       fetch(PRODUCTS_CATEGORIES_ENDPOINT)
         .then((res) => res.json())
         .then((cleanData) => {
@@ -36,6 +38,7 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
           } else {
             setCategoriesArr(cleanData);
             dispatch(setProductsCategories(cleanData));
+            setIsLoading(false);
           }
         });
     } else {
@@ -67,15 +70,21 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
               )}
           </div>
           <nav id="headerNavbar">
-            <ul id="notDropdownList">
-              {topCategoriesArr.filter((_cat, index) => index <= 2)
-                .map((category) => (
-                  <li key={ category }>
-                    <Link to="/" id="notDropdownLink">{category}</Link>
-                  </li>
-                ))}
-              <DropdownCategories />
-            </ul>
+            {!isLoading ? (
+              <ul id="notDropdownList">
+                {topCategoriesArr.filter((_cat, index) => index <= 2)
+                  .map((category) => (
+                    <li key={ category }>
+                      <Link to="/" id="notDropdownLink">{category}</Link>
+                    </li>
+                  ))}
+                <DropdownCategories />
+              </ul>
+            ) : (
+              <ul id="notDropdownList">
+                <div id="fetchHeaderCategoriesLoader" />
+              </ul>
+            )}
           </nav>
           <div id="logInAndSellBtnsContainer">
             {!user.loginInfo.userId

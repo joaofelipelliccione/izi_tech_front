@@ -76,6 +76,27 @@
   cursor: pointer;
 }
 
+#fetchHeaderCategoriesLoader {
+  border: 0.5rem solid var(--romanSilver);
+  border-top: 0.5rem solid var(--magicMint);
+  border-radius: 50%;
+  display: flex;
+  align-self: center;
+  width: 4rem;
+  height: 4rem;
+  margin: 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+
 #logInAndSellBtnsContainer {
   display: flex;
   justify-content: space-evenly;
