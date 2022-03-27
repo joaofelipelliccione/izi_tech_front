@@ -18,6 +18,7 @@ import RemovePublishedAd from './pages/RemovePublishedAd';
 import MyExpiredAds from './pages/MyExpiredAds';
 import NotFound from './pages/NotFound';
 import './styles/App.css';
+import ServerError from './pages/ServerError';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         element={ <RemovePublishedAd /> }
       />
       <Route path="/myAds/expired" element={ <MyExpiredAds /> } />
+      <Route path="/serverError" element={ <ServerError /> } />
       <Route path="*" element={ <NotFound /> } />
     </Routes>
   );

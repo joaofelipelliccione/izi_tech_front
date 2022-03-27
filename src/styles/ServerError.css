@@ -1,0 +1,50 @@
+#serverErrorPageMain {
+  background-image: linear-gradient(var(--onyx), var(--darkPuce));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin-top: 0;
+  padding: 4%;
+}
+
+#serverErrorBlock1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5%;
+}
+
+#serverErrorBlock1 h1 {
+  color: ghostwhite;
+  font-size: 2.8rem;
+  margin: 0 0 1% 0;
+}
+
+#serverErrorBlock1 span {
+  color: ghostwhite;
+  font-size: 1.85rem;
+}
+
+#serverErrorBlock2 {
+  display: flex;
+  width: 35%;
+  justify-content: space-evenly;
+}
+
+#serverErrorBlock2 a {
+  color: wheat;
+  text-decoration: overline;
+  font-size: 1.85rem;
+}
+
+#serverErrorBlock2 a:hover {
+  text-decoration: underline;
+}
+
+#serverErrorIllustration1 {
+  align-self: center;
+  width: 45rem;
+  height: 45rem;
+  margin-top: 1.5%;
+}
