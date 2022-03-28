@@ -59,7 +59,7 @@ function Home() {
         .then((res) => res.json())
         .then((cleanData) => {
           if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
-            navigate('/'); // CRIAR UMA PÁGINA P/ QUANDO NÃO SEJA POSSÍVEL REALIZAR O FETCH
+            navigate('/serverError');
           } else {
             setAdsToRender(cleanData);
             dispatch(setPublishedProductsAC(cleanData));

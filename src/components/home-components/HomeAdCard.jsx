@@ -71,7 +71,7 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
       const cleanData = await fetchToInsertFavoriteProduct(productId);
 
       if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
-        return navigate('/'); // CRIAR UMA PÁGINA P/ QUANDO NÃO SEJA POSSÍVEL REALIZAR O FETCH
+        return navigate('/serverError');
       }
       if (cleanData.code === StatusCodes.UNAUTHORIZED) {
         navigate('/login');
@@ -87,7 +87,7 @@ function HomeAdCard({ adsToRender, setIsShareAdMessageHidden }) {
       const cleanData = await fetchToRemoveFavoriteProduct(productId);
 
       if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
-        return navigate('/'); // CRIAR UMA PÁGINA P/ QUANDO NÃO SEJA POSSÍVEL REALIZAR O FETCH
+        return navigate('/serverError');
       }
       if (cleanData.code === StatusCodes.UNAUTHORIZED) {
         navigate('/login');
