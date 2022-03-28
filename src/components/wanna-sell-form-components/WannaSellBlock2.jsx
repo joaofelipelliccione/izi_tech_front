@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import categoriesStructure from '../../data/categories-structure';
+import { useSelector } from 'react-redux';
 
 function WannaSellBlock2({
   wSProductTopCategory, setWsProductTopCategory,
   wSProductLine, setWsProductLine,
   wSTypeOfProduct, setWsTypeOfProduct,
 }) {
+  const { productsCategoriesArr } = useSelector((state) => state.productsCategories);
   const selectLineOfProduct = 'selecionar linha de produto*';
   const selectTypeOfProduct = 'selecionar tipo de produto*';
 
-  const topCategoriesArray = categoriesStructure
-    .map((topCat) => (topCat.topCategoryName)); // ['smartphones e telefonia', 'informática', 'games', 'eletrônicos, áudio e vídeo', 'veículos elétricos leves'].
+  const topCategoriesArray = productsCategoriesArr
+    .map(({ topCategoryName }) => (topCategoryName));
 
-  const selectedTopCategory = categoriesStructure
-    .find((topCat) => (topCat.topCategoryName === wSProductTopCategory)); // { topCategoryId: 1, topCategoryName: 'telefonia', productLines: [] }
+  const selectedTopCategory = productsCategoriesArr
+    .find(({ topCategoryName }) => (topCategoryName === wSProductTopCategory));
 
   return (
     <div id="wannaSellBlock2">
@@ -48,7 +49,7 @@ function WannaSellBlock2({
             } }
           >
             <option>{selectLineOfProduct}</option>
-            {selectedTopCategory.productLines
+            {selectedTopCategory.productLine
               .map(({ productLineName }) => (productLineName))
               .map((productLine) => (
                 <option key={ productLine }>{productLine}</option>
@@ -65,11 +66,11 @@ function WannaSellBlock2({
             onChange={ ({ target }) => setWsTypeOfProduct(target.value) }
           >
             <option>{selectTypeOfProduct}</option>
-            {selectedTopCategory.productLines
+            {selectedTopCategory.productLine
               .find(({ productLineName }) => (productLineName === wSProductLine))
-              .typeOfProducts
-              .map((typeOfProduct) => (
-                <option key={ typeOfProduct }>{typeOfProduct}</option>
+              .productType
+              .map(({ productTypeName }) => (
+                <option key={ productTypeName }>{productTypeName}</option>
               ))}
           </select>
         </label>)}
