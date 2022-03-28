@@ -16,7 +16,7 @@ function WannaSellBlock3({
             id="productConditionRdBtn0"
             name="productConditionRdBtns"
             type="radio"
-            value="AA"
+            value={ 1 }
             onChange={ ({ target }) => setWsProductConditionRdBtn(target.value) }
           />
           <span>AA - nunca usado: produto zero. </span>
@@ -31,7 +31,7 @@ function WannaSellBlock3({
             id="productConditionRdBtn1"
             name="productConditionRdBtns"
             type="radio"
-            value="A"
+            value={ 2 }
             onChange={ ({ target }) => setWsProductConditionRdBtn(target.value) }
           />
           <span>A - como novo: produto em excelente condição. </span>
@@ -46,7 +46,7 @@ function WannaSellBlock3({
             id="productConditionRdBtn2"
             name="productConditionRdBtns"
             type="radio"
-            value="B"
+            value={ 3 }
             onChange={ ({ target }) => setWsProductConditionRdBtn(target.value) }
           />
           <span>B - bom estado: produto em boas condições. </span>
@@ -61,7 +61,7 @@ function WannaSellBlock3({
             id="productConditionRdBtn3"
             name="productConditionRdBtns"
             type="radio"
-            value="C"
+            value={ 4 }
             onChange={ ({ target }) => setWsProductConditionRdBtn(target.value) }
           />
           <span>

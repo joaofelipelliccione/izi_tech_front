@@ -19,6 +19,7 @@ function WannaSellBlock2({
 
   return (
     <div id="wannaSellBlock2">
+      {console.log(selectedTopCategory)}
       <label htmlFor="wSProductTopCategory">
         <select
           id="wSProductTopCategory"
@@ -69,8 +70,13 @@ function WannaSellBlock2({
             {selectedTopCategory.productLine
               .find(({ productLineName }) => (productLineName === wSProductLine))
               .productType
-              .map(({ productTypeName }) => (
-                <option key={ productTypeName }>{productTypeName}</option>
+              .map(({ productTypeId, productTypeName }) => (
+                <option
+                  key={ productTypeName }
+                  value={ productTypeId }
+                >
+                  {productTypeName}
+                </option>
               ))}
           </select>
         </label>)}
