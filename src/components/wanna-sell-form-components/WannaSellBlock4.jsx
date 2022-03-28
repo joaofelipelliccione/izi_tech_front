@@ -7,7 +7,9 @@ function WannaSellBlock4({
   const formatToCurrency = () => { // REF: https://www.blogson.com.br/formatar-moeda-dinheiro-com-javascript-do-jeito-facil/
     const ZERO = 0;
     const SIX = 6;
+    const ELEVEN = 11;
     let valor = wSProductPrice;
+    console.log(valor.length);
 
     valor += '';
     valor = parseInt(valor.replace(/[\D]+/g, ''), 10);
@@ -16,6 +18,9 @@ function WannaSellBlock4({
 
     if (valor.length > SIX) {
       valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
+    }
+    if (valor.length >= ELEVEN) {
+      valor = valor.replace(/([0-9]{3}).([0-9]{3}),([0-9]{2}$)/g, '.$1.$2,$3');
     }
 
     setWsProductPrice(valor);
