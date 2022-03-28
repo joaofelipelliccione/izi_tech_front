@@ -11,7 +11,7 @@ function WannaSellBlock6({
   wSProductUF, setWsProductUF,
   wSProductDDD, setWsProductDDD }) {
   const notInformed = 'não informado';
-  const eight = 8; const nine = 9;
+  const eight = 8;
   const [isLoading, setIsLoading] = React.useState(false);
 
   const cepMask = (CEP) => {
@@ -80,8 +80,8 @@ function WannaSellBlock6({
             id="wannaSellProductCepBtn"
             type="button"
             onClick={ () => searchFromCEP(wSProductCEP) }
-            disabled={ !(wSProductCEP.length >= eight
-                && wSProductCEP.length <= nine) }
+            // disabled={ !(wSProductCEP.length >= eight
+            //     && wSProductCEP.length <= nine) }
           >
             <BsSearch />
           </button>

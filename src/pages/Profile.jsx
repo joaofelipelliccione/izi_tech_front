@@ -3,14 +3,13 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { AiFillWarning } from 'react-icons/ai';
+import { StatusCodes } from 'http-status-codes';
 import alerts from '../shared-functions/alerts';
 import { setAllUserInfoAC } from '../redux/actions/userAC';
 import userPicDefault from '../images/user-picture.png';
 import Header from '../components/header-components/Header';
 import Footer from '../components/Footer';
 import '../styles/Profile.css';
-
-const { StatusCodes } = require('http-status-codes');
 
 function Profile() {
   const [isLoading, setIsLoading] = React.useState(false);

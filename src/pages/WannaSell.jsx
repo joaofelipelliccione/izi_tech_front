@@ -1,8 +1,10 @@
+/* eslint-disable max-lines */
 /* eslint-disable complexity */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import { StatusCodes } from 'http-status-codes';
 import Header from '../components/header-components/Header';
 import WannaSellBlock1 from '../components/wanna-sell-form-components/WannaSellBlock1';
 import WannaSellBlock2 from '../components/wanna-sell-form-components/WannaSellBlock2';
@@ -12,7 +14,7 @@ import WannaSellBlock5 from '../components/wanna-sell-form-components/WannaSellB
 import WannaSellBlock6 from '../components/wanna-sell-form-components/WannaSellBlock6';
 import WannaSellBlock7 from '../components/wanna-sell-form-components/WannaSellBlock7';
 import WannaSellBlock8 from '../components/wanna-sell-form-components/WannaSellBlock8';
-import getDateOfPublication from '../shared-functions/getDateOfPublication';
+import { setAllUserInfoAC } from '../redux/actions/userAC';
 import {
   registerNewProductAC as registerNewProduct,
 } from '../redux/actions/publishedProductsAC';
@@ -21,13 +23,9 @@ import illustration1 from '../illustrations/wannaSellBeforeLogin.svg';
 import '../styles/WannaSell.css';
 
 function WannaSell() {
-  const currentUserMail = useSelector((state) => state.user.userMail);
-  const registeredUsersArr = useSelector((state) => state.registeredUsers
-    .registeredUsers);
-  const productIdCounter = useSelector((state) => state
-    .publishedProducts.productIdCounter);
-  const publishedProductsMacroArr = useSelector((state) => state.publishedProducts
-    .publishedProducts);
+  const user = useSelector((state) => state.user);
+  const { loginInfo } = user;
+  const userInfo = user.allUserInfo;
 
   const ZERO = 0;
   const THIRTY = 30;
@@ -36,9 +34,7 @@ function WannaSell() {
   const selectTypeOfProduct = 'selecionar tipo de produto*';
   const notInformed = 'não informado';
 
-  const [userCurrentPublishedProductsArr, setUserCurrentPublishedProductsArr] = React
-    .useState([]);
-
+  const [isLoading, setIsLoading] = React.useState(false);
   const [wSProductTitle, setWsProductTitle] = React.useState(''); // 'ws' --> 'wannaSell'.
   const [wSProductDescription, setWsProductDescription] = React.useState('');
   const [wSProductAcceptChange, setWSProductAcceptChange] = React.useState(false);
@@ -63,8 +59,6 @@ function WannaSell() {
   const navigate = useNavigate();
 
   const newProductObj = {
-    productId: productIdCounter + 1,
-    publicationDate: getDateOfPublication(),
     productTitle: wSProductTitle,
     productDescription: wSProductDescription,
     productAcceptChange: wSProductAcceptChange,
@@ -88,27 +82,49 @@ function WannaSell() {
   };
 
   React.useEffect(() => {
-    setWsProductMail(currentUserMail);
+    if (userInfo.userId === undefined && loginInfo.userId !== undefined) {
+      const WANNA_SELL_ENDPOINT_1 = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
+      // const WANNA_SELL_ENDPOINT_1_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
 
-    if (currentUserMail !== '') {
-      setUserCurrentPublishedProductsArr(publishedProductsMacroArr
-        .find(({ userMail }) => userMail === currentUserMail).userPublishedProducts);
+      setIsLoading(true);
+      fetch(WANNA_SELL_ENDPOINT_1, { headers: { Authorization: loginInfo.authToken } })
+        .then((result) => result.json())
+        .then((cleanData) => {
+          if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+            setIsLoading(false);
+            navigate('/');
+            alerts('expiredSession');
+          } else {
+            dispatch(setAllUserInfoAC(cleanData));
+            setIsLoading(false);
+          }
+        });
     }
   }, []);
 
   React.useEffect(() => {
-    const currentUserInfo = registeredUsersArr
-      .find((userObj) => userObj.userMail === currentUserMail);
-
-    if (currentUserInfo !== undefined) {
-      setWsProductCEP(currentUserInfo.userAddress.userCEP);
-      setWsProductNeighborhood(currentUserInfo.userAddress.userNeighborhood);
-      setWsProductCity(currentUserInfo.userAddress.userCity);
-      setWsProductUF(currentUserInfo.userAddress.userUF);
-      setWsProductDDD(currentUserInfo.userAddress.userDDD);
-      setWsProductCellphone(currentUserInfo.userCellphone);
+    if (userInfo.userId !== undefined) {
+      setWsProductMail(userInfo.userMail);
+      console.log(userInfo);
     }
-  }, []);
+  }, [userInfo]);
+
+  React.useEffect(() => {
+    if (userInfo.userId !== undefined && userInfo.userCellphone !== null) {
+      setWsProductCellphone(userInfo.userCellphone);
+    }
+  }, [userInfo]);
+
+  React.useEffect(() => {
+    if (userInfo.userAddress !== undefined && (
+      userInfo.userAddress.infoFromCep !== null)) {
+      setWsProductCEP(userInfo.userAddress.infoFromCep.cep);
+      setWsProductNeighborhood(userInfo.userAddress.infoFromCep.neighborhood);
+      setWsProductCity(userInfo.userAddress.infoFromCep.city);
+      setWsProductUF(userInfo.userAddress.infoFromCep.uf);
+      setWsProductDDD(userInfo.userAddress.infoFromCep.ddd);
+    }
+  }, [userInfo]);
 
   const publishNewProduct = () => {
     const updatedObj = {
@@ -155,7 +171,8 @@ function WannaSell() {
   return (
     <div id="wannaSellPage">
       <Header />
-      {currentUserMail !== '' ? (
+      {console.log(isLoading)}
+      {loginInfo.userId !== undefined ? (
         <main id="wannaSellPageMain">
           <h1>se tá parado aí, melhor anunciar aqui!</h1>
           <form id="wannaSellForm">
@@ -230,7 +247,7 @@ function WannaSell() {
             />
           </main>)}
 
-      {currentUserMail !== '' && <Footer />}
+      {loginInfo.userId !== undefined && <Footer />}
     </div>
   );
 }
