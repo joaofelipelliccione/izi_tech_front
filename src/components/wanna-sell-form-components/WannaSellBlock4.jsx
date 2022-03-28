@@ -9,7 +9,6 @@ function WannaSellBlock4({
     const SIX = 6;
     const ELEVEN = 11;
     let valor = wSProductPrice;
-    console.log(valor.length);
 
     valor += '';
     valor = parseInt(valor.replace(/[\D]+/g, ''), 10);

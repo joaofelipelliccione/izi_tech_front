@@ -6,11 +6,12 @@ import cepValidator from '../../shared-functions/cepValidator';
 
 function WannaSellBlock6({
   wSProductCEP, setWsProductCEP,
+  setWsProductStreet,
   wSProductNeighborhood, setWsProductNeighborhood,
   wSProductCity, setWsProductCity,
   wSProductUF, setWsProductUF,
   wSProductDDD, setWsProductDDD }) {
-  const notInformed = 'não informado';
+  const NOT_INFORMED = 'não informado';
   const eight = 8;
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -23,7 +24,7 @@ function WannaSellBlock6({
     }
 
     if (CEP.length < eight || formattedCEP.length < eight) {
-      setWsProductCEP(notInformed);
+      setWsProductCEP(NOT_INFORMED);
       swal('CEP', 'O código postal deve apresentar exatamente 8 dígitos, '
         + 'sem a presença de hífen. Favor revisá-lo.', 'info');
     }
@@ -41,14 +42,16 @@ function WannaSellBlock6({
     const jsonFormat = await response.json();
 
     if (jsonFormat.erro) {
-      setWsProductCEP(notInformed);
-      setWsProductNeighborhood(notInformed);
-      setWsProductCity(notInformed);
-      setWsProductUF(notInformed);
-      setWsProductDDD(notInformed);
+      setWsProductCEP(NOT_INFORMED);
+      setWsProductStreet(NOT_INFORMED);
+      setWsProductNeighborhood(NOT_INFORMED);
+      setWsProductCity(NOT_INFORMED);
+      setWsProductUF(NOT_INFORMED);
+      setWsProductDDD(NOT_INFORMED);
       setIsLoading(false);
     } else {
       setWsProductNeighborhood(jsonFormat.bairro);
+      setWsProductStreet(jsonFormat.logradouro);
       setWsProductCity(jsonFormat.localidade);
       setWsProductUF(jsonFormat.uf);
       setWsProductDDD(jsonFormat.ddd);
@@ -87,7 +90,7 @@ function WannaSellBlock6({
           </button>
         </div>
         <div id="wannaSellBlock6-1-1">
-          {wSProductCity !== notInformed ? (
+          {wSProductCity !== NOT_INFORMED ? (
             <span>
               {
                 `${wSProductNeighborhood
@@ -111,6 +114,7 @@ function WannaSellBlock6({
 WannaSellBlock6.propTypes = {
   wSProductCEP: PropTypes.string.isRequired,
   setWsProductCEP: PropTypes.func.isRequired,
+  setWsProductStreet: PropTypes.func.isRequired,
   wSProductNeighborhood: PropTypes.string.isRequired,
   setWsProductNeighborhood: PropTypes.func.isRequired,
   wSProductCity: PropTypes.string.isRequired,

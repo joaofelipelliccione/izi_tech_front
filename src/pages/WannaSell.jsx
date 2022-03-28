@@ -43,6 +43,7 @@ function WannaSell() {
   const [wSProductPrice, setWsProductPrice] = React.useState(ZERO.toFixed(2));
   const [wSProductPictures, setWsProductPictures] = React.useState([]);
   const [wSProductCEP, setWsProductCEP] = React.useState(NOT_INFORMED);
+  const [wSProductStreet, setWsProductStreet] = React.useState(NOT_INFORMED);
   const [wSProductNeighborhood, setWsProductNeighborhood] = React.useState(NOT_INFORMED);
   const [wSProductCity, setWsProductCity] = React.useState(NOT_INFORMED);
   const [wSProductUF, setWsProductUF] = React.useState(NOT_INFORMED);
@@ -52,29 +53,6 @@ function WannaSell() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const newProductObj = {
-  //   productTitle: wSProductTitle,
-  //   productDescription: wSProductDescription,
-  //   productAcceptChange: wSProductAcceptChange,
-  //   productTopCategory: wSProductTopCategory,
-  //   productLine: wSProductLine,
-  //   productType: wSTypeOfProduct,
-  //   productCondition: wSProductConditionRdBtn,
-  //   productPrice: wSProductPrice,
-  //   productPictures: wSProductPictures,
-  //   productLocation: {
-  //     productCEP: wSProductCEP,
-  //     productNeighborhood: wSProductNeighborhood,
-  //     productCity: wSProductCity,
-  //     productUF: wSProductUF,
-  //     productDDD: wSProductDDD,
-  //   },
-  //   productContact: {
-  //     productMail: wSProductMail,
-  //     productCellphone: wSProductCellphone,
-  //   },
-  // };
 
   React.useEffect(() => {
     if (loginInfo.userId !== undefined && userInfo.userId === undefined) {
@@ -110,12 +88,29 @@ function WannaSell() {
     if (userInfo.userAddress !== undefined && (
       userInfo.userAddress.infoFromCep !== null)) {
       setWsProductCEP(userInfo.userAddress.infoFromCep.cep);
+      setWsProductStreet(userInfo.userAddress.infoFromCep.street);
       setWsProductNeighborhood(userInfo.userAddress.infoFromCep.neighborhood);
       setWsProductCity(userInfo.userAddress.infoFromCep.city);
       setWsProductUF(userInfo.userAddress.infoFromCep.uf);
       setWsProductDDD(userInfo.userAddress.infoFromCep.ddd);
     }
   }, [userInfo]);
+
+  const newProductToPublish = {
+    userId: loginInfo.userId !== undefined ? loginInfo.userId : 0,
+    productTitle: wSProductTitle,
+    productDescription: wSProductDescription,
+    productAcceptChange: wSProductAcceptChange === false ? 0 : 1,
+    productPrice: Number(wSProductPrice.replace('.', '').replace(',', '.')),
+    productTypeId: Number(wSTypeOfProduct),
+    productConditionId: Number(wSProductConditionRdBtn),
+    cep: wSProductCEP,
+    street: wSProductStreet,
+    neighborhood: wSProductNeighborhood,
+    city: wSProductCity,
+    uf: wSProductUF,
+    ddd: wSProductDDD,
+  };
 
   const gapsValidation = () => {
     if (wSProductTitle === '') {
@@ -151,7 +146,7 @@ function WannaSell() {
       && wSProductConditionRdBtn !== '' && wSProductPrice !== '0.00'
       && wSProductPictures.length !== 0 && wSProductCEP !== NOT_INFORMED
       && wSProductCity !== NOT_INFORMED) {
-      console.log('Anúncio Publicado');
+      console.log(newProductToPublish);
       navigate('/wannaSell/success');
     }
   };
@@ -193,6 +188,7 @@ function WannaSell() {
             <WannaSellBlock6
               wSProductCEP={ wSProductCEP }
               setWsProductCEP={ setWsProductCEP }
+              setWsProductStreet={ setWsProductStreet }
               wSProductNeighborhood={ wSProductNeighborhood }
               setWsProductNeighborhood={ setWsProductNeighborhood }
               wSProductCity={ wSProductCity }

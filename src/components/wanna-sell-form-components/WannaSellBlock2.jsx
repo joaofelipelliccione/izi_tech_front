@@ -19,7 +19,6 @@ function WannaSellBlock2({
 
   return (
     <div id="wannaSellBlock2">
-      {console.log(selectedTopCategory)}
       <label htmlFor="wSProductTopCategory">
         <select
           id="wSProductTopCategory"
