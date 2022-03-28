@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { StatusCodes } from 'http-status-codes';
+import alerts from '../shared-functions/alerts';
 import Header from '../components/header-components/Header';
 import WannaSellBlock1 from '../components/wanna-sell-form-components/WannaSellBlock1';
 import WannaSellBlock2 from '../components/wanna-sell-form-components/WannaSellBlock2';
@@ -82,7 +83,7 @@ function WannaSell() {
   };
 
   React.useEffect(() => {
-    if (userInfo.userId === undefined && loginInfo.userId !== undefined) {
+    if (loginInfo.userId !== undefined && userInfo.userId === undefined) {
       const WANNA_SELL_ENDPOINT_1 = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
       // const WANNA_SELL_ENDPOINT_1_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
 
@@ -105,7 +106,6 @@ function WannaSell() {
   React.useEffect(() => {
     if (userInfo.userId !== undefined) {
       setWsProductMail(userInfo.userMail);
-      console.log(userInfo);
     }
   }, [userInfo]);
 
