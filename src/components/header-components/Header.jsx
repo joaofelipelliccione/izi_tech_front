@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { StatusCodes } from 'http-status-codes';
 import setProductsCategories from '../../redux/actions/productsCategoriesAC';
 import SearchBar from './SearchBar';
@@ -23,6 +23,7 @@ function Header({ setAdsToRender, setIsHomeFilterBoxHidden,
 
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const PRODUCTS_CATEGORIES_ENDPOINT = 'https://izi-tech-back.herokuapp.com/products_categories';

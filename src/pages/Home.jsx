@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RiFilterLine } from 'react-icons/ri';
 import { CgCloseO } from 'react-icons/cg';
 import { StatusCodes } from 'http-status-codes';
@@ -27,6 +28,7 @@ function Home() {
   const [homeOrderBy, setHomeOrderBy] = React.useState('mais recentes');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     authTokenVerifier()
