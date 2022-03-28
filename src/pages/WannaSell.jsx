@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-/* eslint-disable complexity */
+
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -118,7 +118,7 @@ function WannaSell() {
     }
   }, [userInfo]);
 
-  const publishNewProduct = () => {
+  const gapsValidation = () => {
     if (wSProductTitle === '') {
       return alerts('productTitle');
     } if (wSProductDescription.length < THIRTY) {
@@ -140,6 +140,10 @@ function WannaSell() {
     } if (wSProductCEP !== NOT_INFORMED && wSProductCity === NOT_INFORMED) {
       return alerts('cepBtnNotPressed');
     }
+  };
+
+  const publishNewProduct = () => {
+    gapsValidation();
 
     if (wSProductTitle !== '' && wSProductDescription.length >= THIRTY
       && wSProductTopCategory !== selectTopCategory
