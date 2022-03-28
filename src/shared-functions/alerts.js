@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable react-func/max-lines-per-function */
 
 import swal from 'sweetalert';
@@ -49,6 +50,31 @@ function alerts(alertName) {
   case 'imgTooBig':
     swal('Tamanho de imagem', 'Por favor, opte por uma imagem de, até, '
       + '1,5 MB.', 'info');
+    break;
+  case 'productTitle':
+    swal('Título', 'Por favor, forneça um para seu anúncio.', 'info');
+    break;
+  case 'productDescription':
+    swal('Descrição', 'Por favor, forneça uma com, pelo menos, 30 caracteres.', 'info');
+    break;
+  case 'topCategorySelection':
+    swal('Categoria', 'Por favor, selecione uma para o produto.', 'info');
+    break;
+  case 'lineOfProductSelection':
+    swal('Linha', 'Por favor, selecione uma para o produto.', 'info');
+    break;
+  case 'typeOfProductSelection':
+    swal('Tipo', 'Por favor, selecione um para o produto.', 'info');
+    break;
+  case 'productConditionSelection':
+    swal('Estado', 'Por favor, selecione um para o produto.', 'info');
+    break;
+  case 'productPrice':
+    swal('Preço', 'Por favor, selecione um pelo qual deseja vender o produto.', 'info');
+    break;
+  case 'productPictures':
+    swal('Fotos', 'Por favor, forneça pelo menos uma foto do produto. '
+    + 'Fotos originais chamam mais atenção dos compradores!', 'info');
     break;
   default:
     swal('Desculpe o transtorno, algo deu errado...', 'Faremos o possível para voltar à '

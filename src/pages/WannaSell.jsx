@@ -3,7 +3,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
 import { StatusCodes } from 'http-status-codes';
 import alerts from '../shared-functions/alerts';
 import Header from '../components/header-components/Header';
@@ -16,9 +15,6 @@ import WannaSellBlock6 from '../components/wanna-sell-form-components/WannaSellB
 import WannaSellBlock7 from '../components/wanna-sell-form-components/WannaSellBlock7';
 import WannaSellBlock8 from '../components/wanna-sell-form-components/WannaSellBlock8';
 import { setAllUserInfoAC } from '../redux/actions/userAC';
-import {
-  registerNewProductAC as registerNewProduct,
-} from '../redux/actions/publishedProductsAC';
 import Footer from '../components/Footer';
 import illustration1 from '../illustrations/wannaSellBeforeLogin.svg';
 import '../styles/WannaSell.css';
@@ -33,10 +29,9 @@ function WannaSell() {
   const selectTopCategory = 'selecionar categoria*';
   const selectLineOfProduct = 'selecionar linha de produto*';
   const selectTypeOfProduct = 'selecionar tipo de produto*';
-  const notInformed = 'não informado';
+  const NOT_INFORMED = 'não informado';
 
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [wSProductTitle, setWsProductTitle] = React.useState(''); // 'ws' --> 'wannaSell'.
+  const [wSProductTitle, setWsProductTitle] = React.useState('');
   const [wSProductDescription, setWsProductDescription] = React.useState('');
   const [wSProductAcceptChange, setWSProductAcceptChange] = React.useState(false);
   const [wSProductTopCategory, setWsProductTopCategory] = React
@@ -48,56 +43,53 @@ function WannaSell() {
   const [wSProductConditionRdBtn, setWsProductConditionRdBtn] = React.useState('');
   const [wSProductPrice, setWsProductPrice] = React.useState(ZERO.toFixed(2));
   const [wSProductPictures, setWsProductPictures] = React.useState([]);
-  const [wSProductCEP, setWsProductCEP] = React.useState('');
-  const [wSProductNeighborhood, setWsProductNeighborhood] = React.useState('');
-  const [wSProductCity, setWsProductCity] = React.useState('');
-  const [wSProductUF, setWsProductUF] = React.useState('');
-  const [wSProductDDD, setWsProductDDD] = React.useState('');
+  const [wSProductCEP, setWsProductCEP] = React.useState(NOT_INFORMED);
+  const [wSProductNeighborhood, setWsProductNeighborhood] = React.useState(NOT_INFORMED);
+  const [wSProductCity, setWsProductCity] = React.useState(NOT_INFORMED);
+  const [wSProductUF, setWsProductUF] = React.useState(NOT_INFORMED);
+  const [wSProductDDD, setWsProductDDD] = React.useState(NOT_INFORMED);
   const [wSProductMail, setWsProductMail] = React.useState('');
-  const [wSProductCellphone, setWsProductCellphone] = React.useState('');
+  const [wSProductCellphone, setWsProductCellphone] = React.useState(NOT_INFORMED);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const newProductObj = {
-    productTitle: wSProductTitle,
-    productDescription: wSProductDescription,
-    productAcceptChange: wSProductAcceptChange,
-    productTopCategory: wSProductTopCategory,
-    productLine: wSProductLine,
-    productType: wSTypeOfProduct,
-    productCondition: wSProductConditionRdBtn,
-    productPrice: wSProductPrice,
-    productPictures: wSProductPictures,
-    productLocation: {
-      productCEP: wSProductCEP,
-      productNeighborhood: wSProductNeighborhood,
-      productCity: wSProductCity,
-      productUF: wSProductUF,
-      productDDD: wSProductDDD,
-    },
-    productContact: {
-      productMail: wSProductMail,
-      productCellphone: wSProductCellphone,
-    },
-  };
+  // const newProductObj = {
+  //   productTitle: wSProductTitle,
+  //   productDescription: wSProductDescription,
+  //   productAcceptChange: wSProductAcceptChange,
+  //   productTopCategory: wSProductTopCategory,
+  //   productLine: wSProductLine,
+  //   productType: wSTypeOfProduct,
+  //   productCondition: wSProductConditionRdBtn,
+  //   productPrice: wSProductPrice,
+  //   productPictures: wSProductPictures,
+  //   productLocation: {
+  //     productCEP: wSProductCEP,
+  //     productNeighborhood: wSProductNeighborhood,
+  //     productCity: wSProductCity,
+  //     productUF: wSProductUF,
+  //     productDDD: wSProductDDD,
+  //   },
+  //   productContact: {
+  //     productMail: wSProductMail,
+  //     productCellphone: wSProductCellphone,
+  //   },
+  // };
 
   React.useEffect(() => {
     if (loginInfo.userId !== undefined && userInfo.userId === undefined) {
       const WANNA_SELL_ENDPOINT_1 = `https://izi-tech-back.herokuapp.com/user/${loginInfo.userId}`;
       // const WANNA_SELL_ENDPOINT_1_LOCAL = `http://localhost:4000/user/${loginInfo.userId}`;
 
-      setIsLoading(true);
       fetch(WANNA_SELL_ENDPOINT_1, { headers: { Authorization: loginInfo.authToken } })
         .then((result) => result.json())
         .then((cleanData) => {
           if (cleanData.code === StatusCodes.UNAUTHORIZED) {
-            setIsLoading(false);
             navigate('/');
             alerts('expiredSession');
           } else {
             dispatch(setAllUserInfoAC(cleanData));
-            setIsLoading(false);
           }
         });
     }
@@ -127,33 +119,26 @@ function WannaSell() {
   }, [userInfo]);
 
   const publishNewProduct = () => {
-    const updatedObj = {
-      userMail: currentUserMail,
-      userPublishedProducts: [...userCurrentPublishedProductsArr, newProductObj],
-    };
-
     if (wSProductTitle === '') {
-      swal('Título', 'Por favor, forneça um para seu anúncio.', 'info');
+      return alerts('productTitle');
     } if (wSProductDescription.length < THIRTY) {
-      swal('Descrição', 'Por favor, forneça uma com, pelo menos, 30 caracteres.', 'info');
+      return alerts('productDescription');
     } if (wSProductTopCategory === selectTopCategory) {
-      swal('Categoria', 'Por favor, selecione uma para o produto.', 'info');
+      return alerts('topCategorySelection');
     } if (wSProductLine === selectLineOfProduct) {
-      swal('Linha', 'Por favor, selecione uma para o produto.', 'info');
+      return alerts('lineOfProductSelection');
     } if (wSTypeOfProduct === selectTypeOfProduct) {
-      swal('Tipo', 'Por favor, selecione um para o produto.', 'info');
+      return alerts('typeOfProductSelection');
     } if (wSProductConditionRdBtn === '') {
-      swal('Estado', 'Por favor, selecione um para o produto.', 'info');
+      return alerts('productConditionSelection');
     } if (wSProductPrice === '0.00') {
-      swal('Preço', 'Por favor, selecione um pelo qual deseja vender o produto.', 'info');
+      return alerts('productPrice');
     } if (wSProductPictures.length === 0) {
-      swal('Fotos', 'Por favor, forneça pelo menos uma foto do produto. '
-        + 'Fotos originais chamam mais atenção dos compradores!', 'info');
-    } if (wSProductCEP === notInformed) {
-      swal('CEP', 'Por favor, informe um código postal válido.', 'info');
-    } if (wSProductCEP !== notInformed && wSProductCity === notInformed) {
-      swal('', 'Por favor, pressione o botão de pesquisar CEP, '
-      + 'para que as informações de localização sejam preenchidas.', 'info');
+      return alerts('productPictures');
+    } if (wSProductCEP === NOT_INFORMED) {
+      return alerts('cepOutsideFormat');
+    } if (wSProductCEP !== NOT_INFORMED && wSProductCity === NOT_INFORMED) {
+      return alerts('cepBtnNotPressed');
     }
 
     if (wSProductTitle !== '' && wSProductDescription.length >= THIRTY
@@ -161,9 +146,9 @@ function WannaSell() {
       && wSProductLine !== selectLineOfProduct
       && wSTypeOfProduct !== selectTypeOfProduct
       && wSProductConditionRdBtn !== '' && wSProductPrice !== '0.00'
-      && wSProductPictures.length !== 0 && wSProductCEP !== notInformed
-      && wSProductCity !== notInformed) {
-      dispatch(registerNewProduct(updatedObj, currentUserMail));
+      && wSProductPictures.length !== 0 && wSProductCEP !== NOT_INFORMED
+      && wSProductCity !== NOT_INFORMED) {
+      console.log('Anúncio Publicado');
       navigate('/wannaSell/success');
     }
   };
@@ -171,7 +156,6 @@ function WannaSell() {
   return (
     <div id="wannaSellPage">
       <Header />
-      {console.log(isLoading)}
       {loginInfo.userId !== undefined ? (
         <main id="wannaSellPageMain">
           <h1>se tá parado aí, melhor anunciar aqui!</h1>
