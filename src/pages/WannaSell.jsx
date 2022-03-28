@@ -97,7 +97,7 @@ function WannaSell() {
   }, [userInfo]);
 
   const newProductToPublish = {
-    userId: loginInfo.userId !== undefined ? loginInfo.userId : 0,
+    userId: loginInfo.userId,
     productTitle: wSProductTitle,
     productDescription: wSProductDescription,
     productAcceptChange: wSProductAcceptChange === false ? 0 : 1,
