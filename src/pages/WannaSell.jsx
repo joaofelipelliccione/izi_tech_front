@@ -182,7 +182,6 @@ function WannaSell() {
   return (
     <div id="wannaSellPage">
       <Header />
-      { console.log(isLoading) }
       {loginInfo.userId !== undefined ? (
         <main id="wannaSellPageMain">
           <h1>se tá parado aí, melhor anunciar aqui!</h1>
@@ -233,13 +232,15 @@ function WannaSell() {
               setWsProductCellphone={ setWsProductCellphone }
             />
             <WannaSellBlock8 />
-            <button
-              id="publishNewProductBtn"
-              type="button"
-              onClick={ publishNewProduct }
-            >
-              publicar!
-            </button>
+            { !isLoading ? (
+              <button
+                id="publishNewProductBtn"
+                type="button"
+                onClick={ publishNewProduct }
+              >
+                publicar!
+              </button>
+            ) : (<div id="wannaSellLoader" />) }
           </form>
         </main>)
         : (

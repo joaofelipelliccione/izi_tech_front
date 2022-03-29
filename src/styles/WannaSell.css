@@ -433,3 +433,24 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 100%;
 }
+
+#wannaSellLoader {
+  border: 0.5rem solid var(--onyx);
+  border-top: 0.5rem solid var(--paleGreen);
+  border-radius: 50%;
+  display: flex;
+  align-self: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 1% 0 0 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
