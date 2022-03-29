@@ -30,6 +30,7 @@ function WannaSell() {
   const selectTypeOfProduct = 'selecionar tipo de produto*';
   const NOT_INFORMED = 'não informado';
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [wSProductTitle, setWsProductTitle] = React.useState('');
   const [wSProductDescription, setWsProductDescription] = React.useState('');
   const [wSProductAcceptChange, setWSProductAcceptChange] = React.useState(false);
@@ -136,7 +137,23 @@ function WannaSell() {
     }
   };
 
-  const publishNewProduct = () => {
+  const fetchToPostNewProduct = async () => {
+    const WANNA_SELL_ENDPOINT_2 = 'https://izi-tech-back.herokuapp.com/published_products/new';
+    // const WANNA_SELL_ENDPOINT_2_LOCAL = `http://localhost:4000/published_products/new`;
+
+    const body = JSON.stringify(newProductToPublish);
+
+    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_2, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
+      body });
+
+    const cleanData = await fetchedData.json();
+    return cleanData;
+  };
+
+  const publishNewProduct = async () => {
+    setIsLoading(true);
     gapsValidation();
 
     if (wSProductTitle !== '' && wSProductDescription.length >= THIRTY
@@ -146,14 +163,26 @@ function WannaSell() {
       && wSProductConditionRdBtn !== '' && wSProductPrice !== '0.00'
       && wSProductPictures.length !== 0 && wSProductCEP !== NOT_INFORMED
       && wSProductCity !== NOT_INFORMED) {
-      console.log(newProductToPublish);
+      const cleanData = await fetchToPostNewProduct();
+      if (cleanData.code === StatusCodes.UNAUTHORIZED) {
+        navigate('/');
+        return alerts('expiredSession');
+      }
+      if (cleanData.code === StatusCodes.INTERNAL_SERVER_ERROR) {
+        navigate('/');
+        return alerts();
+      }
+      setIsLoading(false);
       navigate('/wannaSell/success');
     }
+
+    setIsLoading(false);
   };
 
   return (
     <div id="wannaSellPage">
       <Header />
+      { console.log(isLoading) }
       {loginInfo.userId !== undefined ? (
         <main id="wannaSellPageMain">
           <h1>se tá parado aí, melhor anunciar aqui!</h1>
