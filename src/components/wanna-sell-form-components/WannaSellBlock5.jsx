@@ -14,6 +14,18 @@ function WannaSellBlock5({
   const [productPic4, setProductPic4] = React.useState('');
   const [productPic5, setProductPic5] = React.useState('');
 
+  const structureArray = [
+    [
+      { id: 1, productPicX: productPic1 },
+      { id: 2, productPicX: productPic2 },
+      { id: 3, productPicX: productPic3 },
+    ],
+    [
+      { id: 4, productPicX: productPic4 },
+      { id: 5, productPicX: productPic5 },
+    ],
+  ];
+
   const onSelectPicture = ({ target }) => {
     if (target.id === 'productPicUploaderInput1') {
       setProductPic1(URL.createObjectURL(target.files[0]));
@@ -93,129 +105,61 @@ function WannaSellBlock5({
   return (
     <div id="wannaSellBlock5">
       <div id="wannaSellBlock5-1">
-        <div className="eachProductPicUploaderContainer">
-          <img
-            src={ productPic1 !== '' ? productPic1 : productPicDefault }
-            alt="1ª Foto do produto"
-          />
-          <label htmlFor="productPicUploaderInput1">
-            {productPic1 === '' ? ADD_PIC : CHANGE_PIC}
-            <input
-              id="productPicUploaderInput1"
-              type="file"
-              onChange={ onSelectPicture }
-              accept="image/*"
+        {structureArray[0].map(({ id, productPicX }) => (
+          <div className="eachProductPicUploaderContainer" key={ id }>
+            <img
+              src={ productPicX !== '' ? productPicX : productPicDefault }
+              alt={ `${id}ª Foto do produto` }
             />
-          </label>
-          <button
-            className="removeProductPicture"
-            id={ productPic1 }
-            type="button"
-            onClick={ onDeletePicture }
-            hidden={ productPic1 === '' }
-          >
-            remover
-          </button>
-        </div>
-        <div className="eachProductPicUploaderContainer">
-          <img
-            src={ productPic2 !== '' ? productPic2 : productPicDefault }
-            alt="2ª Foto do produto"
-          />
-          <label htmlFor="productPicUploaderInput2">
-            {productPic2 === '' ? ADD_PIC : CHANGE_PIC}
-            <input
-              id="productPicUploaderInput2"
-              type="file"
-              onChange={ onSelectPicture }
-              accept="image/*"
-            />
-          </label>
-          <button
-            className="removeProductPicture"
-            id={ productPic2 }
-            type="button"
-            onClick={ onDeletePicture }
-            hidden={ productPic2 === '' }
-          >
-            remover
-          </button>
-        </div>
-        <div className="eachProductPicUploaderContainer">
-          <img
-            src={ productPic3 !== '' ? productPic3 : productPicDefault }
-            alt="3ª Foto do produto"
-          />
-          <label htmlFor="productPicUploaderInput3">
-            {productPic3 === '' ? ADD_PIC : CHANGE_PIC}
-            <input
-              id="productPicUploaderInput3"
-              type="file"
-              onChange={ onSelectPicture }
-              accept="image/*"
-            />
-          </label>
-          <button
-            className="removeProductPicture"
-            id={ productPic3 }
-            type="button"
-            onClick={ onDeletePicture }
-            hidden={ productPic3 === '' }
-          >
-            remover
-          </button>
-        </div>
+            <label htmlFor={ `productPicUploaderInput${id}` }>
+              {productPicX === '' ? ADD_PIC : CHANGE_PIC}
+              <input
+                id={ `productPicUploaderInput${id}` }
+                type="file"
+                onChange={ onSelectPicture }
+                accept="image/*"
+              />
+            </label>
+            <button
+              className="removeProductPicture"
+              id={ productPicX }
+              type="button"
+              onClick={ onDeletePicture }
+              hidden={ productPicX === '' }
+            >
+              remover
+            </button>
+          </div>
+        ))}
       </div>
 
       <div id="wannaSellBlock5-2">
-        <div className="eachProductPicUploaderContainer">
-          <img
-            src={ productPic4 !== '' ? productPic4 : productPicDefault }
-            alt="4ª Foto do produto"
-          />
-          <label htmlFor="productPicUploaderInput4">
-            {productPic4 === '' ? ADD_PIC : CHANGE_PIC}
-            <input
-              id="productPicUploaderInput4"
-              type="file"
-              onChange={ onSelectPicture }
-              accept="image/*"
+        {structureArray[1].map(({ id, productPicX }) => (
+          <div key={ id } className="eachProductPicUploaderContainer">
+            <img
+              src={ productPicX !== '' ? productPicX : productPicDefault }
+              alt={ `${id}ª Foto do produto` }
             />
-          </label>
-          <button
-            className="removeProductPicture"
-            id={ productPic4 }
-            type="button"
-            onClick={ onDeletePicture }
-            hidden={ productPic4 === '' }
-          >
-            remover
-          </button>
-        </div>
-        <div className="eachProductPicUploaderContainer">
-          <img
-            src={ productPic5 !== '' ? productPic5 : productPicDefault }
-            alt="5ª Foto do produto"
-          />
-          <label htmlFor="productPicUploaderInput5">
-            {productPic5 === '' ? ADD_PIC : CHANGE_PIC}
-            <input
-              id="productPicUploaderInput5"
-              type="file"
-              onChange={ onSelectPicture }
-              accept="image/*"
-            />
-          </label>
-          <button
-            className="removeProductPicture"
-            id={ productPic5 }
-            type="button"
-            onClick={ onDeletePicture }
-            hidden={ productPic5 === '' }
-          >
-            remover
-          </button>
-        </div>
+            <label htmlFor={ `productPicUploaderInput${id}` }>
+              {productPicX === '' ? ADD_PIC : CHANGE_PIC}
+              <input
+                id={ `productPicUploaderInput${id}` }
+                type="file"
+                onChange={ onSelectPicture }
+                accept="image/*"
+              />
+            </label>
+            <button
+              className="removeProductPicture"
+              id={ productPicX }
+              type="button"
+              onClick={ onDeletePicture }
+              hidden={ productPicX === '' }
+            >
+              remover
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
