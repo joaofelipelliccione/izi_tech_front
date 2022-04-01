@@ -36,7 +36,6 @@ function EditProfileInfo() {
   const [editUserBirthday, setEditUserBirthday] = React.useState('');
   const [editUserCPF, setEditUserCPF] = React.useState('');
   const [editUserCellphone, setEditUserCellphone] = React.useState('');
-  const [userPicPreview, setUserPicPreview] = React.useState('');
   const [editUserPicture, setEditUserPicture] = React.useState('');
   const [editUserCEP, setEditUserCEP] = React.useState('');
   const [editUserStreet, setEditUserStreet] = React.useState('');
@@ -213,8 +212,6 @@ function EditProfileInfo() {
       <main id="editProfileInfoPageMain">
         <form id="editProfileInfoForm">
           <EditProfileBlock1
-            userPicPreview={ userPicPreview }
-            setUserPicPreview={ setUserPicPreview }
             editUserPicture={ editUserPicture }
             setEditUserPicture={ setEditUserPicture }
             editUsername={ editUsername }
