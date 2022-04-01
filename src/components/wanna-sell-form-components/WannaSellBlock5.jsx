@@ -12,7 +12,9 @@ function WannaSellBlock5({
   const [productPic2, setProductPic2] = React.useState('');
   const [picPreview3, setPicPreview3] = React.useState('');
   const [productPic3, setProductPic3] = React.useState('');
+  const [picPreview4, setPicPreview4] = React.useState('');
   const [productPic4, setProductPic4] = React.useState('');
+  const [picPreview5, setPicPreview5] = React.useState('');
   const [productPic5, setProductPic5] = React.useState('');
 
   const structureArray = [
@@ -22,8 +24,8 @@ function WannaSellBlock5({
       { id: 3, productPicX: productPic3, picPreviewX: picPreview3 },
     ],
     [
-      { id: 4, productPicX: productPic4 },
-      { id: 5, productPicX: productPic5 },
+      { id: 4, productPicX: productPic4, picPreviewX: picPreview4 },
+      { id: 5, productPicX: productPic5, picPreviewX: picPreview5 },
     ],
   ];
 
@@ -48,11 +50,13 @@ function WannaSellBlock5({
         target.value = '';
       }
       if (target.id === 'productPicUploaderInput4') {
-        setProductPic4(URL.createObjectURL(target.files[0]));
+        setPicPreview4(URL.createObjectURL(target.files[0]));
+        setProductPic4(target.files[0]);
         target.value = '';
       }
       if (target.id === 'productPicUploaderInput5') {
-        setProductPic5(URL.createObjectURL(target.files[0]));
+        setPicPreview5(URL.createObjectURL(target.files[0]));
+        setProductPic5(target.files[0]);
         target.value = '';
       }
     } else {
@@ -61,30 +65,34 @@ function WannaSellBlock5({
   };
 
   const onDeletePicture = ({ target }) => {
-    if (Number(target.id) === productPic1.lastModified) {
+    if (target.id === productPic1.name) {
       setWsProductPictures(wSProductPictures
-        .filter(({ lastModified }) => lastModified !== productPic1.lastModified));
+        .filter(({ name }) => name !== productPic1.name));
       setPicPreview1('');
       setProductPic1('');
     }
-    if (Number(target.id) === productPic2.lastModified) {
+    if (target.id === productPic2.name) {
       setWsProductPictures(wSProductPictures
-        .filter(({ lastModified }) => lastModified !== productPic2.lastModified));
+        .filter(({ name }) => name !== productPic2.name));
       setPicPreview2('');
       setProductPic2('');
     }
-    if (Number(target.id) === productPic3.lastModified) {
+    if (target.id === productPic3.name) {
       setWsProductPictures(wSProductPictures
-        .filter(({ lastModified }) => lastModified !== productPic3.lastModified));
+        .filter(({ name }) => name !== productPic3.name));
       setPicPreview3('');
       setProductPic3('');
     }
-    if (target.id === productPic4) {
-      setWsProductPictures(wSProductPictures.filter((pic) => pic !== productPic4));
+    if (target.id === productPic4.name) {
+      setWsProductPictures(wSProductPictures
+        .filter(({ name }) => name !== productPic4.name));
+      setPicPreview4('');
       setProductPic4('');
     }
-    if (target.id === productPic5) {
-      setWsProductPictures(wSProductPictures.filter((pic) => pic !== productPic5));
+    if (target.id === productPic5.name) {
+      setWsProductPictures(wSProductPictures
+        .filter(({ name }) => name !== productPic5.name));
+      setPicPreview5('');
       setProductPic5('');
     }
   };
@@ -147,7 +155,7 @@ function WannaSellBlock5({
             </label>
             <button
               className="removeProductPicture"
-              id={ productPicX.lastModified }
+              id={ productPicX.name }
               type="button"
               onClick={ onDeletePicture }
               hidden={ productPicX === '' }
@@ -159,12 +167,19 @@ function WannaSellBlock5({
       </div>
 
       <div id="wannaSellBlock5-2">
-        {structureArray[1].map(({ id, productPicX }) => (
+        {structureArray[1].map(({ id, productPicX, picPreviewX }) => (
           <div key={ id } className="eachProductPicUploaderContainer">
-            <img
-              src={ productPicX !== '' ? productPicX : productPicDefault }
-              alt={ `${id}ª Foto do produto` }
-            />
+            { productPicX !== '' ? (
+              <img
+                src={ picPreviewX === '' ? productPicX : picPreviewX }
+                alt={ `${id}ª Foto Default` }
+              />
+            ) : (
+              <img
+                src={ picPreviewX === '' ? productPicDefault : picPreviewX }
+                alt={ `${id}ª Foto do produto` }
+              />
+            )}
             <label htmlFor={ `productPicUploaderInput${id}` }>
               adicionar foto!
               <input
@@ -177,7 +192,7 @@ function WannaSellBlock5({
             </label>
             <button
               className="removeProductPicture"
-              id={ productPicX.lastModified }
+              id={ productPicX.name }
               type="button"
               onClick={ onDeletePicture }
               hidden={ productPicX === '' }
