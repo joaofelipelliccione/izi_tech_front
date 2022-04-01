@@ -143,7 +143,10 @@ function WannaSellBlock5({
                 alt={ `${id}ª Foto do produto` }
               />
             )}
-            <label htmlFor={ `productPicUploaderInput${id}` }>
+            <label
+              htmlFor={ `productPicUploaderInput${id}` }
+              id={ productPicX !== '' && 'picUploadBtnHidden' }
+            >
               adicionar foto!
               <input
                 id={ `productPicUploaderInput${id}` }
@@ -180,7 +183,10 @@ function WannaSellBlock5({
                 alt={ `${id}ª Foto do produto` }
               />
             )}
-            <label htmlFor={ `productPicUploaderInput${id}` }>
+            <label
+              htmlFor={ `productPicUploaderInput${id}` }
+              id={ productPicX !== '' && 'picUploadBtnHidden' }
+            >
               adicionar foto!
               <input
                 id={ `productPicUploaderInput${id}` }

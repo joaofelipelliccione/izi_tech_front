@@ -248,6 +248,10 @@
   width: 85%;
 }
 
+#picUploadBtnHidden {
+  display: none;
+}
+
 .eachProductPicUploaderContainer input[type="file"] {
   display: none;
 }
