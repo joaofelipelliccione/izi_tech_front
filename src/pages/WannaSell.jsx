@@ -138,15 +138,33 @@ function WannaSell() {
   };
 
   const fetchToPostNewProduct = async () => {
-    const WANNA_SELL_ENDPOINT_2 = 'https://izi-tech-back.herokuapp.com/published_products/new';
-    // const WANNA_SELL_ENDPOINT_2_LOCAL = `http://localhost:4000/published_products/new`;
+    // const WANNA_SELL_ENDPOINT_2 = 'https://izi-tech-back.herokuapp.com/published_products/new';
+    const WANNA_SELL_ENDPOINT_2_LOCAL = 'http://localhost:4000/published_products/new';
 
     const body = JSON.stringify(newProductToPublish);
 
-    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_2, {
+    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_2_LOCAL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
       body });
+
+    const cleanData = await fetchedData.json();
+    return cleanData;
+  };
+
+  const fetchToPostNewProductPics = async (newProductId) => {
+    // const WANNA_SELL_ENDPOINT_3 = `https://izi-tech-back.herokuapp.com/products_pictures/new/${newProductId}`;
+    const WANNA_SELL_ENDPOINT_3_LOCAL = `http://localhost:4000/products_pictures/new/${newProductId}`;
+
+    const formData = new FormData();
+    formData.append('productPicsUploaderInput', wSProductPictures);
+
+    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_3_LOCAL, {
+      method: 'POST',
+      headers: {
+        Authorization: loginInfo.authToken,
+      },
+      body: formData });
 
     const cleanData = await fetchedData.json();
     return cleanData;
@@ -163,7 +181,19 @@ function WannaSell() {
       && wSProductConditionRdBtn !== '' && wSProductPrice !== '0.00'
       && wSProductPictures.length !== 0 && wSProductCEP !== NOT_INFORMED
       && wSProductCity !== NOT_INFORMED) {
-      const cleanData = await fetchToPostNewProduct();
+      //
+      const { code, newProductId } = await fetchToPostNewProduct();
+      if (code === StatusCodes.UNAUTHORIZED) {
+        navigate('/');
+        return alerts('expiredSession');
+      }
+      if (code === StatusCodes.INTERNAL_SERVER_ERROR) {
+        navigate('/');
+        return alerts();
+      }
+
+      const cleanData = await fetchToPostNewProductPics(newProductId);
+      console.log(cleanData); // VERIFICAR ERRO
       if (cleanData.code === StatusCodes.UNAUTHORIZED) {
         navigate('/');
         return alerts('expiredSession');
@@ -172,7 +202,7 @@ function WannaSell() {
         navigate('/');
         return alerts();
       }
-      console.log(cleanData.newProductId);
+
       setIsLoading(false);
       navigate('/wannaSell/success');
     }
