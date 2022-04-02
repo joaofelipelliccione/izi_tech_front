@@ -138,12 +138,12 @@ function WannaSell() {
   };
 
   const fetchToPostNewProduct = async () => {
-    // const WANNA_SELL_ENDPOINT_2 = 'https://izi-tech-back.herokuapp.com/published_products/new';
-    const WANNA_SELL_ENDPOINT_2_LOCAL = 'http://localhost:4000/published_products/new';
+    const WANNA_SELL_ENDPOINT_2 = 'https://izi-tech-back.herokuapp.com/published_products/new';
+    // const WANNA_SELL_ENDPOINT_2_LOCAL = 'http://localhost:4000/published_products/new';
 
     const body = JSON.stringify(newProductToPublish);
 
-    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_2_LOCAL, {
+    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_2, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: loginInfo.authToken },
       body });
@@ -153,13 +153,13 @@ function WannaSell() {
   };
 
   const fetchToPostNewProductPics = async (newProductId) => {
-    // const WANNA_SELL_ENDPOINT_3 = `https://izi-tech-back.herokuapp.com/products_pictures/new/${newProductId}`;
-    const WANNA_SELL_ENDPOINT_3_LOCAL = `http://localhost:4000/products_pictures/new/${newProductId}`;
+    const WANNA_SELL_ENDPOINT_3 = `https://izi-tech-back.herokuapp.com/products_pictures/new/${newProductId}`;
+    // const WANNA_SELL_ENDPOINT_3_LOCAL = `http://localhost:4000/products_pictures/new/${newProductId}`;
 
     const formData = new FormData();
     wSProductPictures.forEach((pic) => formData.append('productPicsUploaderInput', pic));
 
-    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_3_LOCAL, {
+    const fetchedData = await fetch(WANNA_SELL_ENDPOINT_3, {
       method: 'POST',
       headers: {
         Authorization: loginInfo.authToken,
