@@ -172,6 +172,7 @@ function WannaSell() {
         navigate('/');
         return alerts();
       }
+      console.log(cleanData.newProductId);
       setIsLoading(false);
       navigate('/wannaSell/success');
     }
