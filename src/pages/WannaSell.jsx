@@ -157,7 +157,7 @@ function WannaSell() {
     const WANNA_SELL_ENDPOINT_3_LOCAL = `http://localhost:4000/products_pictures/new/${newProductId}`;
 
     const formData = new FormData();
-    formData.append('productPicsUploaderInput', wSProductPictures);
+    wSProductPictures.forEach((pic) => formData.append('productPicsUploaderInput', pic));
 
     const fetchedData = await fetch(WANNA_SELL_ENDPOINT_3_LOCAL, {
       method: 'POST',
@@ -193,7 +193,6 @@ function WannaSell() {
       }
 
       const cleanData = await fetchToPostNewProductPics(newProductId);
-      console.log(cleanData); // VERIFICAR ERRO
       if (cleanData.code === StatusCodes.UNAUTHORIZED) {
         navigate('/');
         return alerts('expiredSession');

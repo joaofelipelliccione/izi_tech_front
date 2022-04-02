@@ -145,7 +145,7 @@ function WannaSellBlock5({
             )}
             <label
               htmlFor={ `productPicUploaderInput${id}` }
-              id={ productPicX !== '' && 'picUploadBtnHidden' }
+              id={ productPicX !== '' ? 'picUploadBtnHidden' : undefined }
             >
               adicionar foto!
               <input
@@ -185,7 +185,7 @@ function WannaSellBlock5({
             )}
             <label
               htmlFor={ `productPicUploaderInput${id}` }
-              id={ productPicX !== '' && 'picUploadBtnHidden' }
+              id={ productPicX !== '' ? 'picUploadBtnHidden' : undefined }
             >
               adicionar foto!
               <input
